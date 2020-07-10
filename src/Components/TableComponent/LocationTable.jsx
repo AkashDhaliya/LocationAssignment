@@ -24,7 +24,7 @@ function LocationTable() {
 
   if (isResponse && !isError) {
     return locationData.length !== 0 ? (
-      <section>
+      <section className="locationSection">
         {
           <DataTable
             columns={columns}

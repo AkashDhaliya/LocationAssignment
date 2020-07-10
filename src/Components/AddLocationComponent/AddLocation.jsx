@@ -1,18 +1,20 @@
 import React from "react";
 import { Formik, Form } from "formik";
+import { useIndexedDB } from "react-indexed-db";
 import * as Yup from "yup";
 
 function AddLocationData(props) {
+  const { add } = useIndexedDB("locations");
 
-    function resetHandler(reset){
-        props.hideModal();
-        reset();
-    }
+  function resetHandler(reset) {
+    props.hideModal();
+    reset();
+  }
 
-    function submitHandler(submit){
-        submit();
-        props.hideModal();
-    }
+  function submitHandler(submit) {
+    submit();
+    props.hideModal();
+  }
   return (
     <>
       <div className={props.showModal ? "modal show-modal" : "modal"}>
@@ -28,18 +30,24 @@ function AddLocationData(props) {
               city: "",
               state: "",
               zipCode: "",
-              phoneNumber: "",
+              phoneNo: "",
               timeZone: "",
               facilityTimes: "",
               appointmentPool: "",
             }}
-            onSubmit={async (values,{resetForm}) => {
-            //   await new Promise((resolve) => setTimeout(resolve, 500));
-            alert(JSON.stringify(values, null, 2));
-            resetForm({});
+            onSubmit={async (values, { resetForm }) => {
+              add(values).then(
+                (event) => {
+                  console.log("ID Generated: ", event);
+                },
+                (error) => {
+                  console.log(error);
+                }
+              );
+              resetForm({});
             }}
             // validationSchema={Yup.object().shape({
-              
+
             // })}
           >
             {({
@@ -50,7 +58,7 @@ function AddLocationData(props) {
               handleReset,
               isSubmitting,
             }) => (
-              <Form onSubmit={submitHandler.bind(null,handleSubmit)}>
+              <Form onSubmit={submitHandler.bind(null, handleSubmit)}>
                 <div className="locationName">
                   <label required htmlFor="locationName">
                     Location Name
@@ -134,7 +142,7 @@ function AddLocationData(props) {
                       type="text"
                       name="phoneNo"
                       onChange={handleChange}
-                      value={values.phoneNumber}
+                      value={values.phoneNo}
                     />
                   </div>
                   <div className="timeZone">
@@ -170,7 +178,11 @@ function AddLocationData(props) {
                 </div>
 
                 <div className="actionBtn">
-                  <button className="cnclBtn" type="button" onClick={resetHandler.bind(null,handleReset)}>
+                  <button
+                    className="cnclBtn"
+                    type="button"
+                    onClick={resetHandler.bind(null, handleReset)}
+                  >
                     Cancel
                   </button>
                   <button type="submit" disabled={isSubmitting}>

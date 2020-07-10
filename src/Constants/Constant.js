@@ -1,17 +1,17 @@
 export const columns = [
   {
     name: "Location Name",
-    selector: "location_name",
+    selector: "locationName",
     sortable: true,
   },
   {
     name: "Address",
-    selector: "address",
+    selector: "addressLine1",
     sortable: true,
   },
   {
     name: "Phone No.",
-    selector: "phone_no",
+    selector: "phoneNo",
     sortable: true,
   },
 ];

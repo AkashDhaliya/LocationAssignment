@@ -1,10 +1,14 @@
-.locationSection {
+.locationSectionNoData {
     display: flex;
     height: 37rem;
     width: 100%;
     img,p,div {
       margin: auto;
     }
+  }
+
+  .locationSection {
+    margin-top:10px;
   }
 
 .noData {
