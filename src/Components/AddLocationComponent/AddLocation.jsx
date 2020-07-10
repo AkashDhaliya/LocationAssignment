@@ -3,6 +3,16 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
 function AddLocationData(props) {
+
+    function resetHandler(reset){
+        props.hideModal();
+        reset();
+    }
+
+    function submitHandler(submit){
+        submit();
+        props.hideModal();
+    }
   return (
     <>
       <div className={props.showModal ? "modal show-modal" : "modal"}>
@@ -23,10 +33,10 @@ function AddLocationData(props) {
               facilityTimes: "",
               appointmentPool: "",
             }}
-            onSubmit={async (values) => {
+            onSubmit={async (values,{resetForm}) => {
             //   await new Promise((resolve) => setTimeout(resolve, 500));
-              //alert(JSON.stringify(values, null, 2));
-              props.hideModal();
+            alert(JSON.stringify(values, null, 2));
+            resetForm({});
             }}
             // validationSchema={Yup.object().shape({
               
@@ -35,13 +45,12 @@ function AddLocationData(props) {
             {({
               values,
               errors,
-              dirty,
               handleChange,
               handleSubmit,
               handleReset,
               isSubmitting,
             }) => (
-              <Form onSubmit={handleSubmit}>
+              <Form onSubmit={submitHandler.bind(null,handleSubmit)}>
                 <div className="locationName">
                   <label required htmlFor="locationName">
                     Location Name
@@ -161,7 +170,7 @@ function AddLocationData(props) {
                 </div>
 
                 <div className="actionBtn">
-                  <button type="cancel" onClick={handleReset} disabled={!dirty || isSubmitting}>
+                  <button className="cnclBtn" type="button" onClick={resetHandler.bind(null,handleReset)}>
                     Cancel
                   </button>
                   <button type="submit" disabled={isSubmitting}>
