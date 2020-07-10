@@ -38,12 +38,19 @@
 
 label {
   display: block;
+  color: $labelColor;
+  font-size: 14px;
+  margin: 5px 0px;
+}
+
+label[for=locationName]{
+    color: rgb(57,161,190);
 }
 
 input {
   width: -webkit-fill-available;
   border: none;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid $inputBottomBorder;
   outline: 0;
 }
 
@@ -51,7 +58,6 @@ form > div {
   margin: 10px 0px;
 }
 
-.locationName,
 .addressLine1,
 .suiteNo,
 .addressLine2,

@@ -47,7 +47,7 @@ function AddLocationData(props) {
               isSubmitting,
             }) => (
               <form onSubmit={handleSubmit}>
-                <div>
+                <div className="locationName">
                   <label htmlFor="locationName">Location Name</label>
                   <input
                     type="text"
