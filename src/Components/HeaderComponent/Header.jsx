@@ -2,13 +2,17 @@ import React,{useState} from "react";
 import AddLocationData from "../AddLocationComponent/AddLocation";
 
 function Header() {
-  const [addLocationVisibility, setAddLocationVisibility] = useState(false);
+  const [locationVisibility, setLocationVisibility] = useState(false);
+
+  function hideLocationModal(){
+    setLocationVisibility(false);
+  }
 
   return (
     <header>
       <h4>Locations</h4>
-      <button onClick={()=>setAddLocationVisibility(!addLocationVisibility)}>&#43; Add Location</button>
-      <AddLocationData visibility={addLocationVisibility} />
+      <button className="addLocationBtn" onClick={()=>setLocationVisibility(true)}>&#43; Add Location</button>
+      <AddLocationData showModal={locationVisibility} hideModal = {hideLocationModal}  />
     </header>
   );
 }

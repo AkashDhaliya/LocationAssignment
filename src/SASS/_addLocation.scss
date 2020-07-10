@@ -43,8 +43,8 @@ label {
   margin: 5px 0px;
 }
 
-label[for=locationName]{
-    color: rgb(57,161,190);
+label[for="locationName"] {
+  color: rgb(57, 161, 190);
 }
 
 input {
@@ -52,6 +52,7 @@ input {
   border: none;
   border-bottom: 1px solid $inputBottomBorder;
   outline: 0;
+  padding: 5px 2px;
 }
 
 form > div {
@@ -104,4 +105,25 @@ form > div {
 .phoneNo {
   width: 22%;
   margin-right: 26px;
+}
+
+.actionBtn {
+  float: right;
+
+  button {
+    margin: 0px 7px;
+    padding: 7px 15px;
+    color: $white;
+    border: none;
+    outline:none;
+    border-radius: 3px;
+  }
+
+  button[type=submit] {
+    background-color: $blue;
+  }
+
+  button[type=cancel] {
+    background-color: $cancelBtnColor;
+  }
 }

@@ -2,9 +2,15 @@ import React from "react";
 import { Formik } from "formik";
 
 function AddLocationData(props) {
+  function resetValues() {
+    let modal = document.querySelector(".modal");
+    console.log(modal);
+    props.hideModal();
+  }
+
   return (
     <>
-      <div className={props.visibility ? "modal show-modal" : "modal"}>
+      <div className={props.showModal ? "modal show-modal" : "modal"}>
         <div className="modal-content">
           <h5>Add Locations</h5>
           <Formik
@@ -39,13 +45,7 @@ function AddLocationData(props) {
               }, 400);
             }}
           >
-            {({
-              values,
-              errors,
-              handleChange,
-              handleSubmit,
-              isSubmitting,
-            }) => (
+            {({ values, errors, handleChange, handleSubmit, isSubmitting }) => (
               <form onSubmit={handleSubmit}>
                 <div className="locationName">
                   <label htmlFor="locationName">Location Name</label>
@@ -55,7 +55,7 @@ function AddLocationData(props) {
                     onChange={handleChange}
                     value={values.email}
                   />
-                  {errors.email}
+                  {/* {errors.email} */}
                 </div>
 
                 <div>
@@ -68,7 +68,7 @@ function AddLocationData(props) {
                       value={values.email}
                     />
                   </div>
-                  {errors.email}
+
                   <div className="suiteNo">
                     <label htmlFor="suiteNo">Suite No.</label>
                     <input
@@ -78,7 +78,6 @@ function AddLocationData(props) {
                       value={values.email}
                     />
                   </div>
-                  {errors.email}
                 </div>
                 <div>
                   <div className="addressLine2">
@@ -89,7 +88,6 @@ function AddLocationData(props) {
                       onChange={handleChange}
                       value={values.email}
                     />
-                    {errors.email}
                   </div>
                   <div className="city">
                     <label htmlFor="city">City</label>
@@ -99,7 +97,6 @@ function AddLocationData(props) {
                       onChange={handleChange}
                       value={values.email}
                     />
-                    {errors.email}
                   </div>
                   <div className="state">
                     <label htmlFor="state">State</label>
@@ -109,7 +106,6 @@ function AddLocationData(props) {
                       onChange={handleChange}
                       value={values.email}
                     />
-                    {errors.email}
                   </div>
                 </div>
 
@@ -122,7 +118,6 @@ function AddLocationData(props) {
                       onChange={handleChange}
                       value={values.email}
                     />
-                    {errors.email}
                   </div>
                   <div className="phoneNo">
                     <label htmlFor="phoneNo">Phone Number</label>
@@ -132,7 +127,6 @@ function AddLocationData(props) {
                       onChange={handleChange}
                       value={values.email}
                     />
-                    {errors.email}
                   </div>
                   <div className="timeZone">
                     <label htmlFor="timeZone">Time Zone</label>
@@ -142,7 +136,6 @@ function AddLocationData(props) {
                       onChange={handleChange}
                       value={values.email}
                     />
-                    {errors.email}
                   </div>
                 </div>
 
@@ -155,7 +148,6 @@ function AddLocationData(props) {
                       onChange={handleChange}
                       value={values.email}
                     />
-                    {errors.email}
                   </div>
                   <div className="appointmentPool">
                     <label htmlFor="appointmentPool">Appointment Pool</label>
@@ -165,13 +157,17 @@ function AddLocationData(props) {
                       onChange={handleChange}
                       value={values.email}
                     />
-                    {errors.email}
                   </div>
                 </div>
 
-                <button type="submit" disabled={isSubmitting}>
-                  Submit
-                </button>
+                <div className="actionBtn">
+                  <button type="cancel" onClick={resetValues}>
+                    Cancel
+                  </button>
+                  <button type="submit" disabled={isSubmitting}>
+                    Submit
+                  </button>
+                </div>
               </form>
             )}
           </Formik>
