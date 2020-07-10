@@ -1,0 +1,9 @@
+@import "./SASS/variables";
+@import "./SASS/header.scss";
+@import "./SASS/locationTable";
+@import "./SASS/loading";
+@import "./SASS/addLocation";
+
+body{
+    background-color: $grey;
+}

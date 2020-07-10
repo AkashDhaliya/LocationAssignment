@@ -1,0 +1,19 @@
+.locationSection {
+    display: flex;
+    height: 37rem;
+    width: 100%;
+    img,p,div {
+      margin: auto;
+    }
+  }
+
+.noData {
+  display: flex;
+  height: 37rem;
+  width: 100%;
+  background-color: $noDataLocationbgColor;
+
+  img,p,div {
+    margin: auto;
+  }
+}
