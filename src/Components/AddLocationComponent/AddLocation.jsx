@@ -1,18 +1,14 @@
 import React from "react";
-import { Formik } from "formik";
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
 
 function AddLocationData(props) {
-  function resetValues() {
-    let modal = document.querySelector(".modal");
-    console.log(modal);
-    props.hideModal();
-  }
-
   return (
     <>
       <div className={props.showModal ? "modal show-modal" : "modal"}>
         <div className="modal-content">
           <h5>Add Locations</h5>
+
           <Formik
             initialValues={{
               locationName: "",
@@ -27,45 +23,47 @@ function AddLocationData(props) {
               facilityTimes: "",
               appointmentPool: "",
             }}
-            validate={(values) => {
-              const errors = {};
-              if (!values.email) {
-                errors.email = "Required";
-              } else if (
-                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-              ) {
-                errors.email = "Invalid email address";
-              }
-              return errors;
+            onSubmit={async (values) => {
+            //   await new Promise((resolve) => setTimeout(resolve, 500));
+              //alert(JSON.stringify(values, null, 2));
+              props.hideModal();
             }}
-            onSubmit={(values, { setSubmitting }) => {
-              setTimeout(() => {
-                alert(JSON.stringify(values, null, 2));
-                setSubmitting(false);
-              }, 400);
-            }}
+            // validationSchema={Yup.object().shape({
+              
+            // })}
           >
-            {({ values, errors, handleChange, handleSubmit, isSubmitting }) => (
-              <form onSubmit={handleSubmit}>
+            {({
+              values,
+              errors,
+              dirty,
+              handleChange,
+              handleSubmit,
+              handleReset,
+              isSubmitting,
+            }) => (
+              <Form onSubmit={handleSubmit}>
                 <div className="locationName">
-                  <label htmlFor="locationName">Location Name</label>
+                  <label required htmlFor="locationName">
+                    Location Name
+                  </label>
                   <input
                     type="text"
                     name="locationName"
                     onChange={handleChange}
-                    value={values.email}
+                    value={values.locationName}
                   />
-                  {/* {errors.email} */}
                 </div>
 
                 <div>
                   <div className="addressLine1">
-                    <label htmlFor="addressLine1">Address Line 1</label>
+                    <label required htmlFor="addressLine1">
+                      Address Line 1
+                    </label>
                     <input
                       type="text"
-                      name="locationName"
+                      name="addressLine1"
                       onChange={handleChange}
-                      value={values.email}
+                      value={values.addressLine1}
                     />
                   </div>
 
@@ -75,7 +73,7 @@ function AddLocationData(props) {
                       type="text"
                       name="suiteNo"
                       onChange={handleChange}
-                      value={values.email}
+                      value={values.suiteNo}
                     />
                   </div>
                 </div>
@@ -86,7 +84,7 @@ function AddLocationData(props) {
                       type="text"
                       name="addressLine2"
                       onChange={handleChange}
-                      value={values.email}
+                      value={values.addressLine2}
                     />
                   </div>
                   <div className="city">
@@ -95,7 +93,7 @@ function AddLocationData(props) {
                       type="text"
                       name="city"
                       onChange={handleChange}
-                      value={values.email}
+                      value={values.city}
                     />
                   </div>
                   <div className="state">
@@ -104,7 +102,7 @@ function AddLocationData(props) {
                       type="text"
                       name="state"
                       onChange={handleChange}
-                      value={values.email}
+                      value={values.state}
                     />
                   </div>
                 </div>
@@ -116,16 +114,18 @@ function AddLocationData(props) {
                       type="text"
                       name="zipCode"
                       onChange={handleChange}
-                      value={values.email}
+                      value={values.zipCode}
                     />
                   </div>
                   <div className="phoneNo">
-                    <label htmlFor="phoneNo">Phone Number</label>
+                    <label required htmlFor="phoneNo">
+                      Phone Number
+                    </label>
                     <input
                       type="text"
                       name="phoneNo"
                       onChange={handleChange}
-                      value={values.email}
+                      value={values.phoneNumber}
                     />
                   </div>
                   <div className="timeZone">
@@ -134,7 +134,7 @@ function AddLocationData(props) {
                       type="text"
                       name="timeZone"
                       onChange={handleChange}
-                      value={values.email}
+                      value={values.timeZone}
                     />
                   </div>
                 </div>
@@ -146,7 +146,7 @@ function AddLocationData(props) {
                       type="text"
                       name="facilityTimes"
                       onChange={handleChange}
-                      value={values.email}
+                      value={values.facilityTimes}
                     />
                   </div>
                   <div className="appointmentPool">
@@ -155,20 +155,20 @@ function AddLocationData(props) {
                       type="text"
                       name="appointmentPool"
                       onChange={handleChange}
-                      value={values.email}
+                      value={values.appointmentPool}
                     />
                   </div>
                 </div>
 
                 <div className="actionBtn">
-                  <button type="cancel" onClick={resetValues}>
+                  <button type="cancel" onClick={handleReset} disabled={!dirty || isSubmitting}>
                     Cancel
                   </button>
                   <button type="submit" disabled={isSubmitting}>
                     Submit
                   </button>
                 </div>
-              </form>
+              </Form>
             )}
           </Formik>
         </div>
