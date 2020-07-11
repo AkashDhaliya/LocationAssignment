@@ -1,10 +1,15 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import { useIndexedDB } from "react-indexed-db";
+import formatStringByPattern from "format-string-by-pattern";
+
 import {
   STATELIST,
   SPECIAL_CHAR_ERROR_MSG,
   TIME_ZONE_LIST,
+  ZIP_CODE_ERROR_MSG,
+  PHONE_NO_ERROR_MSG,
+  CITY_ERROR_MSG,
 } from "../../Constants/Constant";
 import * as Yup from "yup";
 
@@ -19,14 +24,6 @@ function AddLocationData(props) {
   function submitHandler(submit) {
     submit();
     props.hideModal();
-  }
-
-  function validateLocation(value) {
-    let error;
-    if (/[!$%^&*()+|~=`{}[:;<>?.@#\]]/g.test(value)) {
-      error = SPECIAL_CHAR_ERROR_MSG;
-    }
-    return error;
   }
 
   return (
@@ -50,21 +47,36 @@ function AddLocationData(props) {
               appointmentPool: "",
             }}
             onSubmit={async (values, { resetForm }) => {
-              //   add(values).then(
-              //     (event) => {
-              //       console.log("ID Generated: ", event);
-              //     },
-              //     (error) => {
-              //       console.log(error);
-              //     }
-              //   );
+              values.phoneNo = formatStringByPattern(
+                "(999) 999-9999",
+                values.phoneNo
+              );
+              add(values).then(
+                (event) => {
+                  console.log("ID Generated: ", event);
+                },
+                (error) => {
+                  console.log(error);
+                }
+              );
               resetForm({});
               alert(JSON.stringify(values, null, 2));
             }}
             validationSchema={Yup.object().shape({
-              locationName: Yup.string().required("Required"),
-              addressLine1: Yup.string().required("Required"),
-              phoneNo: Yup.string().required("Required"),
+              locationName: Yup.string()
+                .required("Required")
+                .matches(/^[a-zA-Z0-9,_ -]+$/, SPECIAL_CHAR_ERROR_MSG),
+              addressLine1: Yup.string()
+                .required("Required")
+                .matches(/^[a-zA-Z0-9,_ -]+$/, SPECIAL_CHAR_ERROR_MSG),
+              phoneNo: Yup.string()
+                .required("Required")
+                .matches(/^[0-9]+$/, PHONE_NO_ERROR_MSG),
+              city: Yup.string().matches(/^[a-zA-Z ]+$/, CITY_ERROR_MSG),
+              zipCode: Yup.string()
+                .min(5, "Too Short!")
+                .max(10, "Too Long!")
+                .matches(/^[a-zA-Z0-9]+$/, ZIP_CODE_ERROR_MSG),
             })}
           >
             {({
@@ -84,7 +96,6 @@ function AddLocationData(props) {
                   <Field
                     type="text"
                     name="locationName"
-                    validate={validateLocation}
                     onChange={handleChange}
                     value={values.locationName}
                   />
@@ -101,7 +112,6 @@ function AddLocationData(props) {
                     <Field
                       type="text"
                       name="addressLine1"
-                      validate={validateLocation}
                       onChange={handleChange}
                       value={values.addressLine1}
                     />
@@ -135,7 +145,6 @@ function AddLocationData(props) {
                     <Field
                       type="text"
                       name="city"
-                      validate={validateLocation}
                       onChange={handleChange}
                       value={values.city}
                     />
@@ -168,13 +177,15 @@ function AddLocationData(props) {
                       onChange={handleChange}
                       value={values.zipCode}
                     />
+                    {errors.zipCode && (
+                      <div className="errorMsg">{errors.zipCode}</div>
+                    )}
                   </div>
                   <div className="phoneNo">
                     <label required htmlFor="phoneNo">
                       Phone Number
                     </label>
                     <Field
-                      type="text"
                       name="phoneNo"
                       onChange={handleChange}
                       value={values.phoneNo}

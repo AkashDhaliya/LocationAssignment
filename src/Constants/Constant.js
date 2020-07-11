@@ -95,4 +95,6 @@ export const ERROR_MSG =
 export const SPECIAL_CHAR_ERROR_MSG =
   "Special Characters are not allowed excluding  [ _ - , ]";
 
-export const CITY_VALIDATION_ERROR_MSG = "Allowed input from A-Z only";
+export const ZIP_CODE_ERROR_MSG = "Only alphanumeric values allowed";
+export const PHONE_NO_ERROR_MSG = "Only number allowed";
+export const CITY_ERROR_MSG = "Only characters allowed from A-Z";
