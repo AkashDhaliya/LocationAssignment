@@ -3,6 +3,7 @@ import { useIndexedDB } from "react-indexed-db";
 import DataTable from "react-data-table-component";
 import { ERROR_MSG } from "../../Constants/Constant";
 import Loading from "../LoadingComponent/Loading";
+import AddLocationData from "../AddLocationComponent/AddLocation";
 import { FaArrowDown, FaTrashAlt, FaPencilAlt } from "react-icons/fa";
 
 const sortIcon = <FaArrowDown />;
@@ -10,6 +11,7 @@ const sortIcon = <FaArrowDown />;
 function LocationTable() {
   const { getAll, deleteRecord } = useIndexedDB("locations");
   const [locationData, setLocationData] = useState([]);
+  const [locationVisibility, setLocationVisibility] = useState(false);
   const [isResponse, setIsResponse] = useState(false);
   const [isError, setisError] = useState(false);
 
@@ -24,14 +26,10 @@ function LocationTable() {
   };
 
   const updateLocation = (row) => {
-    if (window.confirm(`Are you sure you want to delete:\r ${row.name}?`)) {
-      const { data } = this.state;
-      const index = data.findIndex((r) => r === row);
-
-      this.setState((state) => ({
-        toggleCleared: !state.toggleCleared,
-        data: [...state.data.slice(0, index), ...state.data.slice(index + 1)],
-      }));
+    if (
+      window.confirm(`Are you sure you want to update:\r ${row.locationName}?`)
+    ) {
+      setLocationVisibility(true);
     }
   };
 
@@ -70,7 +68,6 @@ function LocationTable() {
 
   useEffect(() => {
     getAll().then((locationData) => {
-      console.log(locationData);
       setLocationData(locationData);
       setIsResponse(true);
       setisError(false);
@@ -80,17 +77,19 @@ function LocationTable() {
   if (isResponse && !isError) {
     return locationData.length !== 0 ? (
       <section className="locationSection">
-        {
-          <DataTable
-            columns={columns}
-            highlightOnHover
-            defaultSortField="locationName"
-            pagination
-            sortIcon={sortIcon}
-            theme="solarized"
-            data={locationData}
-          />
-        }
+        <DataTable
+          columns={columns}
+          highlightOnHover
+          defaultSortField="locationName"
+          pagination
+          sortIcon={sortIcon}
+          theme="solarized"
+          data={locationData}
+        />
+        <AddLocationData
+          showModal={locationVisibility}
+          hideModal={() => setLocationVisibility(false)}
+        />
       </section>
     ) : (
       <section className="locationSection">

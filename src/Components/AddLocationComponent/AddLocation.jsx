@@ -158,7 +158,6 @@ function AddLocationData(props) {
                       name="state"
                       onChange={handleChange}
                       value={values.state}
-                      id="stateDropdwn"
                     >
                       <option value="">Select</option>
                       {STATELIST.map((item) => (
