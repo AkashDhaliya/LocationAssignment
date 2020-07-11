@@ -36,7 +36,7 @@ function LocationTable() {
         }
       </section>
     ) : (
-      <section className="locationSection">
+      <section className="locationSectionNoData">
         <img
           src={require("../../Images/no_locations.jpg")}
           alt="No Locations available"
@@ -45,13 +45,13 @@ function LocationTable() {
     );
   } else if (isResponse && isError) {
     return (
-      <section className="locationSection">
+      <section className="locationSectionNoData">
         <p> {ERROR_MSG}</p>
       </section>
     );
   } else {
     return (
-      <section className="locationSection">
+      <section className="locationSectionNoData">
         <Loading />
       </section>
     );

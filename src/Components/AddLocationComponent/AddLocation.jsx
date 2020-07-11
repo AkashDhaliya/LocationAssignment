@@ -46,9 +46,9 @@ function AddLocationData(props) {
               );
               resetForm({});
             }}
-            // validationSchema={Yup.object().shape({
-
-            // })}
+            validationSchema={Yup.object().shape({
+              locationName: Yup.string().required("Required"),
+            })}
           >
             {({
               values,
@@ -69,6 +69,9 @@ function AddLocationData(props) {
                     onChange={handleChange}
                     value={values.locationName}
                   />
+                  {errors.locationName && (
+                    <div className="input-feedback">{errors.locationName}</div>
+                  )}
                 </div>
 
                 <div>
