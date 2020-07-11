@@ -1,17 +1,72 @@
 import React, { useState, useEffect } from "react";
 import { useIndexedDB } from "react-indexed-db";
 import DataTable from "react-data-table-component";
-import { columns, ERROR_MSG } from "../../Constants/Constant";
+import { ERROR_MSG } from "../../Constants/Constant";
 import Loading from "../LoadingComponent/Loading";
-import {FaArrowDown} from 'react-icons/fa';
+import { FaArrowDown, FaTrashAlt, FaPencilAlt } from "react-icons/fa";
 
 const sortIcon = <FaArrowDown />;
 
 function LocationTable() {
-  const { getAll } = useIndexedDB("locations");
+  const { getAll, deleteRecord } = useIndexedDB("locations");
   const [locationData, setLocationData] = useState([]);
   const [isResponse, setIsResponse] = useState(false);
   const [isError, setisError] = useState(false);
+
+  const deleteLocation = (row) => {
+    if (
+      window.confirm(`Are you sure you want to delete:\r ${row.locationName}?`)
+    ) {
+      deleteRecord(row.id).then((event) => {
+        alert("Deleted!");
+      });
+    }
+  };
+
+  const updateLocation = (row) => {
+    if (window.confirm(`Are you sure you want to delete:\r ${row.name}?`)) {
+      const { data } = this.state;
+      const index = data.findIndex((r) => r === row);
+
+      this.setState((state) => ({
+        toggleCleared: !state.toggleCleared,
+        data: [...state.data.slice(0, index), ...state.data.slice(index + 1)],
+      }));
+    }
+  };
+
+  const columns = [
+    {
+      name: "Location Name",
+      selector: "locationName",
+      sortable: true,
+    },
+    {
+      name: "Address",
+      selector: "addressLine1",
+      sortable: true,
+    },
+    {
+      name: "Phone No.",
+      selector: "phoneNo",
+      sortable: true,
+    },
+    {
+      cell: (row) => (
+        <div>
+          <FaPencilAlt
+            className="editIcon"
+            onClick={updateLocation.bind(null, row)}
+          />
+          <FaTrashAlt
+            className="deleteLocation"
+            onClick={deleteLocation.bind(null, row)}
+          />
+        </div>
+      ),
+      button: true,
+    },
+  ];
 
   useEffect(() => {
     getAll().then((locationData) => {
@@ -28,6 +83,8 @@ function LocationTable() {
         {
           <DataTable
             columns={columns}
+            highlightOnHover
+            defaultSortField="locationName"
             pagination
             sortIcon={sortIcon}
             theme="solarized"

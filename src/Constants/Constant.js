@@ -1,20 +1,4 @@
-export const columns = [
-  {
-    name: "Location Name",
-    selector: "locationName",
-    sortable: true,
-  },
-  {
-    name: "Address",
-    selector: "addressLine1",
-    sortable: true,
-  },
-  {
-    name: "Phone No.",
-    selector: "phoneNo",
-    sortable: true,
-  },
-];
+
 
 export const STATELIST = [
   "Andhra Pradesh",

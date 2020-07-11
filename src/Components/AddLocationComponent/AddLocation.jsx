@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { useIndexedDB } from "react-indexed-db";
 import formatStringByPattern from "format-string-by-pattern";
+import TimeSlot from "../TimeSlotComponent/TimeSlot"; //showFacilityModal
 
 import {
   STATELIST,
@@ -15,6 +16,7 @@ import * as Yup from "yup";
 
 function AddLocationData(props) {
   const { add } = useIndexedDB("locations");
+  const [facilityModal, setFacilityModal] = useState(false);
 
   function resetHandler(reset) {
     props.hideModal();
@@ -218,9 +220,14 @@ function AddLocationData(props) {
                     <Field
                       type="text"
                       name="facilityTimes"
+                      onClick={() => setFacilityModal(true)}
                       onChange={handleChange}
                       value={values.facilityTimes}
                     />
+                    {/* <TimeSlot
+                      showFacilityModal={facilityModal}
+                      hideFacilityModal={() => setFacilityModal(false)}
+                    /> */}
                   </div>
                   <div className="appointmentPool">
                     <label htmlFor="appointmentPool">Appointment Pool</label>
