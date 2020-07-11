@@ -1,6 +1,11 @@
 import React from "react";
-import { Formik, Form } from "formik";
+import { Formik, Form, Field } from "formik";
 import { useIndexedDB } from "react-indexed-db";
+import {
+  STATELIST,
+  SPECIAL_CHAR_ERROR_MSG,
+  TIME_ZONE_LIST,
+} from "../../Constants/Constant";
 import * as Yup from "yup";
 
 function AddLocationData(props) {
@@ -15,6 +20,15 @@ function AddLocationData(props) {
     submit();
     props.hideModal();
   }
+
+  function validateLocation(value) {
+    let error;
+    if (/[!$%^&*()+|~=`{}[:;<>?.@#\]]/g.test(value)) {
+      error = SPECIAL_CHAR_ERROR_MSG;
+    }
+    return error;
+  }
+
   return (
     <>
       <div className={props.showModal ? "modal show-modal" : "modal"}>
@@ -36,18 +50,21 @@ function AddLocationData(props) {
               appointmentPool: "",
             }}
             onSubmit={async (values, { resetForm }) => {
-              add(values).then(
-                (event) => {
-                  console.log("ID Generated: ", event);
-                },
-                (error) => {
-                  console.log(error);
-                }
-              );
+              //   add(values).then(
+              //     (event) => {
+              //       console.log("ID Generated: ", event);
+              //     },
+              //     (error) => {
+              //       console.log(error);
+              //     }
+              //   );
               resetForm({});
+              alert(JSON.stringify(values, null, 2));
             }}
             validationSchema={Yup.object().shape({
               locationName: Yup.string().required("Required"),
+              addressLine1: Yup.string().required("Required"),
+              phoneNo: Yup.string().required("Required"),
             })}
           >
             {({
@@ -58,19 +75,21 @@ function AddLocationData(props) {
               handleReset,
               isSubmitting,
             }) => (
-              <Form onSubmit={submitHandler.bind(null, handleSubmit)}>
+              //   <Form onSubmit={submitHandler.bind(null, handleSubmit)}>
+              <Form onSubmit={handleSubmit}>
                 <div className="locationName">
                   <label required htmlFor="locationName">
                     Location Name
                   </label>
-                  <input
+                  <Field
                     type="text"
                     name="locationName"
+                    validate={validateLocation}
                     onChange={handleChange}
                     value={values.locationName}
                   />
                   {errors.locationName && (
-                    <div className="input-feedback">{errors.locationName}</div>
+                    <div className="errorMsg">{errors.locationName}</div>
                   )}
                 </div>
 
@@ -79,17 +98,21 @@ function AddLocationData(props) {
                     <label required htmlFor="addressLine1">
                       Address Line 1
                     </label>
-                    <input
+                    <Field
                       type="text"
                       name="addressLine1"
+                      validate={validateLocation}
                       onChange={handleChange}
                       value={values.addressLine1}
                     />
+                    {errors.addressLine1 && (
+                      <div className="errorMsg">{errors.addressLine1}</div>
+                    )}
                   </div>
 
                   <div className="suiteNo">
                     <label htmlFor="suiteNo">Suite No.</label>
-                    <input
+                    <Field
                       type="text"
                       name="suiteNo"
                       onChange={handleChange}
@@ -100,7 +123,7 @@ function AddLocationData(props) {
                 <div>
                   <div className="addressLine2">
                     <label htmlFor="addressLine2">Address Line 2</label>
-                    <input
+                    <Field
                       type="text"
                       name="addressLine2"
                       onChange={handleChange}
@@ -109,28 +132,37 @@ function AddLocationData(props) {
                   </div>
                   <div className="city">
                     <label htmlFor="city">City</label>
-                    <input
+                    <Field
                       type="text"
                       name="city"
+                      validate={validateLocation}
                       onChange={handleChange}
                       value={values.city}
                     />
+                    <div className="errorMsg">{errors.city}</div>
                   </div>
                   <div className="state">
                     <label htmlFor="state">State</label>
-                    <input
-                      type="text"
+                    <select
                       name="state"
                       onChange={handleChange}
                       value={values.state}
-                    />
+                      id="stateDropdwn"
+                    >
+                      <option value="">Select</option>
+                      {STATELIST.map((item) => (
+                        <option key={item} value={item}>
+                          {item}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
 
                 <div>
                   <div className="zipCode">
                     <label htmlFor="zipCode">Zip Code</label>
-                    <input
+                    <Field
                       type="text"
                       name="zipCode"
                       onChange={handleChange}
@@ -141,28 +173,38 @@ function AddLocationData(props) {
                     <label required htmlFor="phoneNo">
                       Phone Number
                     </label>
-                    <input
+                    <Field
                       type="text"
                       name="phoneNo"
                       onChange={handleChange}
                       value={values.phoneNo}
                     />
+                    {errors.phoneNo && (
+                      <div className="errorMsg">{errors.phoneNo}</div>
+                    )}
                   </div>
                   <div className="timeZone">
                     <label htmlFor="timeZone">Time Zone</label>
-                    <input
-                      type="text"
+
+                    <select
                       name="timeZone"
                       onChange={handleChange}
                       value={values.timeZone}
-                    />
+                    >
+                      <option value="">Select</option>
+                      {TIME_ZONE_LIST.map((item) => (
+                        <option key={item} value={item}>
+                          {item}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                 </div>
 
                 <div>
                   <div className="facilityTimes">
                     <label htmlFor="facilityTimes">Facility Times</label>
-                    <input
+                    <Field
                       type="text"
                       name="facilityTimes"
                       onChange={handleChange}
@@ -171,7 +213,7 @@ function AddLocationData(props) {
                   </div>
                   <div className="appointmentPool">
                     <label htmlFor="appointmentPool">Appointment Pool</label>
-                    <input
+                    <Field
                       type="text"
                       name="appointmentPool"
                       onChange={handleChange}
@@ -179,7 +221,6 @@ function AddLocationData(props) {
                     />
                   </div>
                 </div>
-
                 <div className="actionBtn">
                   <button
                     className="cnclBtn"

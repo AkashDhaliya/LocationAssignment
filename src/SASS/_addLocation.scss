@@ -48,13 +48,13 @@ label[for="locationName"] {
 }
 
 label[required] {
-  &:after{
-    content:" *";
-    color:red;
+  &:after {
+    content: " *";
+    color: red;
   }
 }
 
-input {
+input,select {
   width: -webkit-fill-available;
   border: none;
   border-bottom: 1px solid $inputBottomBorder;
@@ -154,7 +154,7 @@ form > div {
     border: none;
     outline: none;
     border-radius: 3px;
-    cursor:pointer;
+    cursor: pointer;
   }
 
   button[type="submit"] {
@@ -164,4 +164,11 @@ form > div {
   .cnclBtn {
     background-color: $cancelBtnColor;
   }
+}
+
+.errorMsg {
+  font-size: 12px;
+  color: red;
+  margin-top: 2px;
+  display:table;
 }
