@@ -1,8 +1,8 @@
 import React from "react";
 import DataTable from "react-data-table-component";
-import { ERROR_MSG, customStyles } from "../../Constants/Constant";
+import { GET_ERROR_MSG, customStyles } from "../../Constants/Constant";
 import Loading from "../LoadingComponent/Loading";
-import { FaArrowDown, FaTrashAlt, FaPencilAlt } from "react-icons/fa";
+import { FaTrashAlt, FaPencilAlt } from "react-icons/fa";
 import formatStringByPattern from "format-string-by-pattern";
 
 function LocationTable(props) {
@@ -78,7 +78,7 @@ function LocationTable(props) {
   } else if (isResponse && isError) {
     return (
       <section className="locationSection">
-        <p> {ERROR_MSG}</p>
+        <p> {GET_ERROR_MSG}</p>
       </section>
     );
   } else {

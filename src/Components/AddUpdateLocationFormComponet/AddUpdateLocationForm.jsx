@@ -2,6 +2,7 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import { useIndexedDB } from "react-indexed-db";
 //import TimeSlot from "../TimeSlotComponent/TimeSlot"; //showFacilityModal
+import { ADD_ERROR_MSG, UPDATE_ERROR_MSG } from "../../Constants/Constant";
 import * as Yup from "yup";
 import {
   STATELIST,
@@ -37,17 +38,18 @@ function AddUpdateLocationForm(props) {
             initialValues={props.formData}
             onSubmit={async (values, { resetForm }) => {
               let mode = values.id === undefined ? add : update;
-               await mode(values).then(
+              await mode(values).then(
                 (event) => {
                   console.log("ID Generated: ", event);
                 },
                 (error) => {
-                  console.log(error);
+                  window.alert(
+                    values.id === undefined ? ADD_ERROR_MSG : UPDATE_ERROR_MSG
+                  );
                 }
               );
               resetForm({});
             }}
-
             validationSchema={Yup.object().shape({
               locationName: Yup.string()
                 .required("Required")
@@ -71,7 +73,7 @@ function AddUpdateLocationForm(props) {
               handleChange,
               handleSubmit,
               handleReset,
-              isValid
+              isValid,
             }) => (
               <Form onSubmit={submitHandler.bind(null, handleSubmit)}>
                 <div className="locationName">
