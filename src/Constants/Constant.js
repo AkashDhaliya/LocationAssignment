@@ -12,6 +12,65 @@ export const INITIALDATA = {
   appointmentPool: "",
 };
 
+export const TIME_FACILITY_INITIAL_DATA = [
+  {
+    day: "Sun",
+    checked: false,
+    from: "",
+    fromAMPM: "",
+    to: "",
+    toAMPM: "",
+  },
+  {
+    day: "Mon",
+    checked: false,
+    from: "",
+    fromAMPM: "",
+    to: "",
+    toAMPM: "",
+  },
+  {
+    day: "Tue",
+    checked: false,
+    from: "",
+    fromAMPM: "",
+    to: "",
+    toAMPM: "",
+  },
+  {
+    day: "Wed",
+    checked: false,
+    from: "",
+    fromAMPM: "",
+    to: "",
+    toAMPM: "",
+  },
+  {
+    day: "Thr",
+    checked: false,
+    from: "",
+    fromAMPM: "",
+    to: "",
+    toAMPM: "",
+  },
+  {
+    day: "Fri",
+    checked: false,
+    from: "",
+    fromAMPM: "",
+    to: "",
+    toAMPM: "",
+  },
+  {
+    day: "Sat",
+    checked: false,
+    from: "",
+    fromAMPM: "",
+    to: "",
+    toAMPM: "",
+  }
+];
+
 export const STATELIST = [
   "Andhra Pradesh",
   "Arunachal Pradesh",
@@ -87,9 +146,11 @@ export const TIME_ZONE_LIST = [
 
 export const GET_ERROR_MSG =
   "Oops..Seems like some error occurred while loading the data. Please refresh the page or try after some time.";
-  export const ADD_ERROR_MSG = "Error while adding location, Please try again!";
-export const UPDATE_ERROR_MSG = "Error while updating location, Please try again!";
-export const DELETE_ERROR_MSG = "Error while deleting location, Please try again!";
+export const ADD_ERROR_MSG = "Error while adding location, Please try again!";
+export const UPDATE_ERROR_MSG =
+  "Error while updating location, Please try again!";
+export const DELETE_ERROR_MSG =
+  "Error while deleting location, Please try again!";
 
 export const SPECIAL_CHAR_ERROR_MSG =
   "Special Characters are not allowed excluding  [ _ - , ]";
@@ -97,7 +158,6 @@ export const SPECIAL_CHAR_ERROR_MSG =
 export const ZIP_CODE_ERROR_MSG = "Only alphanumeric values allowed";
 export const PHONE_NO_ERROR_MSG = "Only number allowed";
 export const CITY_ERROR_MSG = "Only characters allowed from A-Z";
-
 
 export const customStyles = {
   table: {
@@ -125,7 +185,7 @@ export const customStyles = {
       marginBottom: "7px",
       color: "#878c92",
       fontSize: "12px",
-      fontWeight:"500",
+      fontWeight: "500",
       boxShadow: "0px 0px 8px 0px #dedede",
 
       "&:hover": {

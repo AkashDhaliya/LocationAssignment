@@ -77,11 +77,12 @@ function AddUpdateLocationForm(props) {
             }) => (
               <Form onSubmit={submitHandler.bind(null, handleSubmit)}>
                 <div className="locationName">
-                  <label required htmlFor="locationName">
+                  <label className="addUpdateLocationLabel" required htmlFor="locationName">
                     Location Name
                   </label>
                   <Field
                     type="text"
+                    className="addUpdateLocationInput"
                     name="locationName"
                     onChange={handleChange}
                     value={values.locationName}
@@ -93,11 +94,12 @@ function AddUpdateLocationForm(props) {
 
                 <div>
                   <div className="addressLine1">
-                    <label required htmlFor="addressLine1">
+                    <label className="addUpdateLocationLabel" required htmlFor="addressLine1">
                       Address Line 1
                     </label>
                     <Field
                       type="text"
+                      className="addUpdateLocationInput"
                       name="addressLine1"
                       onChange={handleChange}
                       value={values.addressLine1}
@@ -108,10 +110,11 @@ function AddUpdateLocationForm(props) {
                   </div>
 
                   <div className="suiteNo">
-                    <label htmlFor="suiteNo">Suite No.</label>
+                    <label className="addUpdateLocationLabel" htmlFor="suiteNo">Suite No.</label>
                     <Field
                       type="text"
                       name="suiteNo"
+                      className="addUpdateLocationInput"
                       onChange={handleChange}
                       value={values.suiteNo}
                     />
@@ -119,18 +122,20 @@ function AddUpdateLocationForm(props) {
                 </div>
                 <div>
                   <div className="addressLine2">
-                    <label htmlFor="addressLine2">Address Line 2</label>
+                    <label className="addUpdateLocationLabel" htmlFor="addressLine2">Address Line 2</label>
                     <Field
                       type="text"
+                      className="addUpdateLocationInput"
                       name="addressLine2"
                       onChange={handleChange}
                       value={values.addressLine2}
                     />
                   </div>
                   <div className="city">
-                    <label htmlFor="city">City</label>
+                    <label className="addUpdateLocationLabel" htmlFor="city">City</label>
                     <Field
                       type="text"
+                      className="addUpdateLocationInput"
                       name="city"
                       onChange={handleChange}
                       value={values.city}
@@ -138,10 +143,11 @@ function AddUpdateLocationForm(props) {
                     <div className="errorMsg">{errors.city}</div>
                   </div>
                   <div className="state">
-                    <label htmlFor="state">State</label>
+                    <label className="addUpdateLocationLabel" htmlFor="state">State</label>
                     <select
                       name="state"
                       onChange={handleChange}
+                      className="addUpdateLocationInput"
                       value={values.state}
                     >
                       <option value="">Select</option>
@@ -156,10 +162,11 @@ function AddUpdateLocationForm(props) {
 
                 <div>
                   <div className="zipCode">
-                    <label htmlFor="zipCode">Zip Code</label>
+                    <label className="addUpdateLocationLabel" htmlFor="zipCode">Zip Code</label>
                     <Field
                       type="text"
                       name="zipCode"
+                      className="addUpdateLocationInput"
                       onChange={handleChange}
                       value={values.zipCode}
                     />
@@ -168,11 +175,12 @@ function AddUpdateLocationForm(props) {
                     )}
                   </div>
                   <div className="phoneNo">
-                    <label required htmlFor="phoneNo">
+                    <label className="addUpdateLocationLabel" required htmlFor="phoneNo">
                       Phone Number
                     </label>
                     <Field
                       name="phoneNo"
+                      className="addUpdateLocationInput"
                       onChange={handleChange}
                       value={values.phoneNo}
                     />
@@ -181,7 +189,7 @@ function AddUpdateLocationForm(props) {
                     )}
                   </div>
                   <div className="timeZone">
-                    <label htmlFor="timeZone">Time Zone</label>
+                    <label className="addUpdateLocationLabel" htmlFor="timeZone">Time Zone</label>
 
                     <select
                       name="timeZone"
@@ -200,8 +208,9 @@ function AddUpdateLocationForm(props) {
 
                 <div>
                   <div className="facilityTimes">
-                    <label htmlFor="facilityTimes">Facility Times</label>
+                    <label className="addUpdateLocationLabel" htmlFor="facilityTimes">Facility Times</label>
                     <Field
+                    className="addUpdateLocationInput"
                       type="text"
                       name="facilityTimes"
                       onClick={() => setFacilityModal(true)}
@@ -214,8 +223,9 @@ function AddUpdateLocationForm(props) {
                     />
                   </div>
                   <div className="appointmentPool">
-                    <label htmlFor="appointmentPool">Appointment Pool</label>
+                    <label className="addUpdateLocationLabel" htmlFor="appointmentPool">Appointment Pool</label>
                     <Field
+                    className="addUpdateLocationInput"
                       type="text"
                       name="appointmentPool"
                       onChange={handleChange}
@@ -227,7 +237,10 @@ function AddUpdateLocationForm(props) {
                           {values.appointmentPool.split(",").map((item) => {
                             if (item.length > 0) {
                               return (
-                                <span className="appointmentTags" key={item.trim()}>
+                                <span
+                                  className="appointmentTags"
+                                  key={item.trim()}
+                                >
                                   {item.trim()}
                                 </span>
                               );
