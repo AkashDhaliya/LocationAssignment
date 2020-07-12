@@ -1,38 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { useIndexedDB } from "react-indexed-db";
+import React from "react";
 import DataTable from "react-data-table-component";
-import { ERROR_MSG } from "../../Constants/Constant";
+import { ERROR_MSG,customStyles } from "../../Constants/Constant";
 import Loading from "../LoadingComponent/Loading";
-import AddLocationData from "../AddLocationComponent/AddLocation";
 import { FaArrowDown, FaTrashAlt, FaPencilAlt } from "react-icons/fa";
+import formatStringByPattern from "format-string-by-pattern";
 
 const sortIcon = <FaArrowDown />;
 
-function LocationTable() {
-  const { getAll, deleteRecord } = useIndexedDB("locations");
-  const [locationData, setLocationData] = useState([]);
-  const [locationVisibility, setLocationVisibility] = useState(false);
-  const [isResponse, setIsResponse] = useState(false);
-  const [isError, setisError] = useState(false);
-
-  const deleteLocation = (row) => {
-    if (
-      window.confirm(`Are you sure you want to delete:\r ${row.locationName}?`)
-    ) {
-      deleteRecord(row.id).then((event) => {
-        alert("Deleted!");
-      });
-    }
-  };
-
-  const updateLocation = (row) => {
-    if (
-      window.confirm(`Are you sure you want to update:\r ${row.locationName}?`)
-    ) {
-      setLocationVisibility(true);
-    }
-  };
-
+function LocationTable(props) {
   const columns = [
     {
       name: "Location Name",
@@ -48,17 +23,20 @@ function LocationTable() {
       name: "Phone No.",
       selector: "phoneNo",
       sortable: true,
+      cell: (row) => (
+        <div>{formatStringByPattern("(999) 999-9999", row.phoneNo)}</div>
+      ),
     },
     {
       cell: (row) => (
         <div>
           <FaPencilAlt
             className="editIcon"
-            onClick={updateLocation.bind(null, row)}
+            onClick={props.update.bind(null, row)}
           />
           <FaTrashAlt
             className="deleteLocation"
-            onClick={deleteLocation.bind(null, row)}
+            onClick={props.delete.bind(null, row)}
           />
         </div>
       ),
@@ -66,29 +44,20 @@ function LocationTable() {
     },
   ];
 
-  useEffect(() => {
-    getAll().then((locationData) => {
-      setLocationData(locationData);
-      setIsResponse(true);
-      setisError(false);
-    });
-  }, []);
-
+  const { locationData, isResponse, isError } = props;
   if (isResponse && !isError) {
     return locationData.length !== 0 ? (
       <section className="locationSection">
         <DataTable
           columns={columns}
+          noHeader={true}
           highlightOnHover
           defaultSortField="locationName"
           pagination
           sortIcon={sortIcon}
+          customStyles={customStyles}
           theme="solarized"
           data={locationData}
-        />
-        <AddLocationData
-          showModal={locationVisibility}
-          hideModal={() => setLocationVisibility(false)}
         />
       </section>
     ) : (

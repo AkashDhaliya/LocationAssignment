@@ -1,4 +1,18 @@
+import { FaGreaterThanEqual } from "react-icons/fa";
 
+export const INITIALDATA = {
+  locationName: "",
+  addressLine1: "",
+  suiteNo: "",
+  addressLine2: "",
+  city: "",
+  state: "",
+  zipCode: "",
+  phoneNo: "",
+  timeZone: "",
+  facilityTimes: "",
+  appointmentPool: "",
+};
 
 export const STATELIST = [
   "Andhra Pradesh",
@@ -82,3 +96,16 @@ export const SPECIAL_CHAR_ERROR_MSG =
 export const ZIP_CODE_ERROR_MSG = "Only alphanumeric values allowed";
 export const PHONE_NO_ERROR_MSG = "Only number allowed";
 export const CITY_ERROR_MSG = "Only characters allowed from A-Z";
+
+export const customStyles = {
+  pagination: {
+    style: {
+      'justify-content': 'center',
+      'font-size': '12px',
+    },
+    pageButtonsStyle: {
+      color:'green',
+      
+    },
+  },
+};
