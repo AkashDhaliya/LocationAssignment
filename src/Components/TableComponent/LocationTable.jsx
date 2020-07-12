@@ -54,6 +54,7 @@ function LocationTable(props) {
           highlightOnHover
           defaultSortField="locationName"
           pagination
+          dense={true}
           sortIcon={sortIcon}
           customStyles={customStyles}
           theme="solarized"

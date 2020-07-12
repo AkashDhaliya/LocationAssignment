@@ -1,5 +1,3 @@
-import { FaGreaterThanEqual } from "react-icons/fa";
-
 export const INITIALDATA = {
   locationName: "",
   addressLine1: "",
@@ -98,14 +96,57 @@ export const PHONE_NO_ERROR_MSG = "Only number allowed";
 export const CITY_ERROR_MSG = "Only characters allowed from A-Z";
 
 export const customStyles = {
+  table: {
+    style: {
+      backgroundColor: "#f0f1f3",
+      paddingLeft: "6px",
+      paddingRight: "6px",
+    },
+  },
+  headRow: {
+    style: {
+      border: "1px solid transparent",
+      borderRadius: "40px",
+      marginBottom: "7px",
+    },
+  },
+  headCells: {
+    style: {
+      fontSize: "12px",
+      fontWeight: "bold",
+    },
+  },
+  rows: {
+    style: {
+      border: "1px solid transparent",
+      borderRadius: "40px",
+      marginBottom: "7px",
+      color: "#878c92",
+      fontSize: "12px",
+      fontWeight:"500",
+      boxShadow: "0px 0px 8px 0px #dedede",
+
+      "&:hover": {
+        color: "#878c92",
+        backgroundColor: "#fff!important",
+        outline: "none!important",
+      },
+
+      "&:not(:last-of-type)": {
+        border: "1px solid transparent",
+      },
+    },
+  },
   pagination: {
     style: {
-      'justify-content': 'center',
-      'font-size': '12px',
+      justifyContent: "center",
+      fontSize: "12px",
+      border: "1px solid transparent",
+      borderRadius: "40px",
+      marginBottom: "7px",
     },
     pageButtonsStyle: {
-      color:'green',
-      
+      color: "green",
     },
   },
 };
