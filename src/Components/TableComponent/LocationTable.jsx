@@ -11,6 +11,7 @@ function LocationTable(props) {
       cell: (row) => (
         <div className="serialNoIconDiv">{row.serial}</div>
       ),
+      width:"60px",
     },
     {
       name: "Location Name",

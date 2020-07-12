@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { useIndexedDB } from "react-indexed-db";
-//import TimeSlot from "../TimeSlotComponent/TimeSlot"; //showFacilityModal
+import TimeSlot from "../TimeSlotComponent/TimeSlot";
 import { ADD_ERROR_MSG, UPDATE_ERROR_MSG } from "../../Constants/Constant";
 import * as Yup from "yup";
 import {
@@ -15,7 +15,7 @@ import {
 
 function AddUpdateLocationForm(props) {
   const { add, update } = useIndexedDB("locations");
-  //const [facilityModal, setFacilityModal] = useState(false);
+  const [facilityModal, setFacilityModal] = useState(false);
 
   function resetHandler(reset) {
     props.hideAddUpdateForm();
@@ -204,14 +204,14 @@ function AddUpdateLocationForm(props) {
                     <Field
                       type="text"
                       name="facilityTimes"
-                      // onClick={() => setFacilityModal(true)}
+                      onClick={() => setFacilityModal(true)}
                       onChange={handleChange}
                       value={values.facilityTimes}
                     />
-                    {/* <TimeSlot
+                    <TimeSlot
                       showFacilityModal={facilityModal}
                       hideFacilityModal={() => setFacilityModal(false)}
-                    /> */}
+                    />
                   </div>
                   <div className="appointmentPool">
                     <label htmlFor="appointmentPool">Appointment Pool</label>
@@ -221,6 +221,20 @@ function AddUpdateLocationForm(props) {
                       onChange={handleChange}
                       value={values.appointmentPool}
                     />
+                    {values.appointmentPool != undefined &&
+                      values.appointmentPool.length > 0 && (
+                        <div className="appointmentPoolTagsParent">
+                          {values.appointmentPool.split(",").map((item) => {
+                            if (item.length > 0) {
+                              return (
+                                <span className="appointmentTags" key={item.trim()}>
+                                  {item.trim()}
+                                </span>
+                              );
+                            }
+                          })}
+                        </div>
+                      )}
                   </div>
                 </div>
                 <div className="actionBtn">
