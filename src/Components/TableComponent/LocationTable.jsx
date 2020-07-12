@@ -1,14 +1,17 @@
 import React from "react";
 import DataTable from "react-data-table-component";
-import { ERROR_MSG,customStyles } from "../../Constants/Constant";
+import { ERROR_MSG, customStyles } from "../../Constants/Constant";
 import Loading from "../LoadingComponent/Loading";
 import { FaArrowDown, FaTrashAlt, FaPencilAlt } from "react-icons/fa";
 import formatStringByPattern from "format-string-by-pattern";
 
-const sortIcon = <FaArrowDown />;
-
 function LocationTable(props) {
   const columns = [
+    {
+      cell: (row) => (
+        <div className="serialNoIconDiv">{row.serial}</div>
+      ),
+    },
     {
       name: "Location Name",
       selector: "locationName",
@@ -44,6 +47,8 @@ function LocationTable(props) {
     },
   ];
 
+  const paginationOptions = { rowsPerPageText: "Items per page" };
+
   const { locationData, isResponse, isError } = props;
   if (isResponse && !isError) {
     return locationData.length !== 0 ? (
@@ -54,8 +59,9 @@ function LocationTable(props) {
           highlightOnHover
           defaultSortField="locationName"
           pagination
+          paginationComponentOptions={paginationOptions}
           dense={true}
-          sortIcon={sortIcon}
+          size={10}
           customStyles={customStyles}
           theme="solarized"
           data={locationData}

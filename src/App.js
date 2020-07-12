@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Header from "./Components/HeaderComponent/Header";
-import LocationContainer from "./Components/LocationComponent/LocationContiner"
+import LocationContainer from "./Components/LocationComponent/LocationContainer"
 import "./App.scss";
 import { DBConfig } from "../src/Configurations/DBConfig";
 import { initDB } from "react-indexed-db";

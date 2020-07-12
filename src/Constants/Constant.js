@@ -99,8 +99,6 @@ export const customStyles = {
   table: {
     style: {
       backgroundColor: "#f0f1f3",
-      paddingLeft: "6px",
-      paddingRight: "6px",
     },
   },
   headRow: {
@@ -143,6 +141,7 @@ export const customStyles = {
       fontSize: "12px",
       border: "1px solid transparent",
       borderRadius: "40px",
+      minHeight: "40px",
       marginBottom: "7px",
     },
     pageButtonsStyle: {

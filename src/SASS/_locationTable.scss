@@ -1,8 +1,7 @@
 .locationSection {
   display: flex;
   height: 37rem;
-  width: 100%;
-  background-color: $noDataLocationbgColor;
+  padding: 0px 6px;
   margin-top: 5px;
   img,
   p {
@@ -27,4 +26,14 @@
 .deleteLocation {
   color: #f16e62;
   cursor: pointer;
+}
+
+.serialNoIconDiv {
+  height: 23px;
+  width: 23px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 22px;
+  background-color: #2a5f8d;
+  color: white;
 }
