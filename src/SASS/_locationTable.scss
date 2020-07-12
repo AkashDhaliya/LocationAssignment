@@ -1,0 +1,39 @@
+.locationSection {
+  display: flex;
+  height: 37rem;
+  padding: 0px 6px;
+  margin-top: 5px;
+  img,
+  p {
+    margin: auto;
+  }
+}
+
+.loading {
+  img,
+  p,
+  div {
+    margin: auto;
+  }
+}
+
+.editIcon {
+  color: #ffb331;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+.deleteLocation {
+  color: #f16e62;
+  cursor: pointer;
+}
+
+.serialNoIconDiv {
+  height: 23px;
+  width: 23px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 22px;
+  background-color: #2a5f8d;
+  color: white;
+}

@@ -1,0 +1,9 @@
+@mixin highlightInputFiled{
+    .addUpdateLocationLabel{
+        color: rgb(101, 118, 144);
+        font-weight: bold;
+      }
+      .addUpdateLocationInput {
+        border-bottom: 2px solid rgb(76, 97, 113);
+      }
+}

@@ -1,0 +1,12 @@
+@import "./SASS/variables";
+@import "./SASS/mixin";
+@import "./SASS/header.scss";
+@import "./SASS/locationTable";
+@import "./SASS/loading";
+@import "./SASS/addLocation";
+@import "./SASS/addUpdateLocation";
+@import "./SASS/timeSlot";
+
+body{
+    background-color: $grey;
+}
