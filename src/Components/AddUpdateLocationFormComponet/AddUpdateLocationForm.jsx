@@ -231,7 +231,7 @@ function AddUpdateLocationForm(props) {
                       onChange={handleChange}
                       value={values.appointmentPool}
                     />
-                    {values.appointmentPool != undefined &&
+                    {values.appointmentPool !== undefined &&
                       values.appointmentPool.length > 0 && (
                         <div className="appointmentPoolTagsParent">
                           {values.appointmentPool.split(",").map((item) => {

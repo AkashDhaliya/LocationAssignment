@@ -1,19 +1,19 @@
 import React from "react";
-import { Formik, Form, Field } from "formik";
 import { TIME_FACILITY_INITIAL_DATA } from "../../Constants/Constant";
-import * as Yup from "yup";
+// import { Formik, Form, Field } from "formik";
+// import * as Yup from "yup";
 
 function TimeSlot(props) {
-  function resetHandler(reset) {
-    props.hideAddUpdateForm();
-    props.initialData();
-    reset();
-  }
+  // function resetHandler(reset) {
+  //   props.hideAddUpdateForm();
+  //   props.initialData();
+  //   reset();
+  // }
 
-  function submitHandler(submit) {
-    submit();
-    props.hideAddUpdateForm();
-  }
+  // function submitHandler(submit) {
+  //   submit();
+  //   props.hideAddUpdateForm();
+  // }
 
   return (
     <>
@@ -26,7 +26,7 @@ function TimeSlot(props) {
       >
         <div className="facility-modal-content">
           <h5>Facility Times</h5>
-          <div className="facilityContentHeader"><span>From</span><span>To</span></div>
+          <div className="facilityContentHeader"><span className="fromHeader">From</span><span className="toHeader">To</span></div>
           {TIME_FACILITY_INITIAL_DATA.map((item) => (
             <div key={item.day} className="facilityContentDiv">
               <input type="checkbox" name={item.day} value={item.day}></input>
