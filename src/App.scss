@@ -1,11 +1,11 @@
 @import "./SASS/variables";
 @import "./SASS/mixin";
 @import "./SASS/header.scss";
-@import "./SASS/locationTable";
-@import "./SASS/loading";
-@import "./SASS/addLocation";
-@import "./SASS/addUpdateLocation";
-@import "./SASS/timeSlot";
+@import "./SASS/locationContainer";
+@import "./SASS/loadingSpinner";
+@import "./SASS/addLocationBtn";
+@import "./SASS/addUpdateLocationForm";
+@import "./SASS/facilityTimeSlot";
 
 body{
     background-color: $grey;

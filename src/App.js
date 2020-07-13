@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import Header from "./Components/HeaderComponent/Header";
-import LocationContainer from "./Components/LocationComponent/LocationContainer";
-import ErrorBoundary from "./Components/ErrorBoundryComponent/ErrorBoundry";
 import "./App.scss";
-import { DBConfig } from "../src/Configurations/DBConfig";
 import { initDB } from "react-indexed-db";
+import { DBConfig } from "../src/Configurations/DBConfig";
+import Header from "./Components/HeaderComponent/Header";
+import ErrorBoundary from "./Components/ErrorBoundryComponent/ErrorBoundry";
+import LocationContainer from "./Components/LocationContainerComponent/LocationContainer";
 
 initDB(DBConfig);
 
