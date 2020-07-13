@@ -245,6 +245,7 @@ function AddUpdateLocationForm(props) {
                                 </span>
                               );
                             }
+                            return null;
                           })}
                         </div>
                       )}
