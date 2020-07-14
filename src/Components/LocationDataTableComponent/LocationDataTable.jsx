@@ -60,7 +60,6 @@ function LocationDataTable(props) {
           columns={columns}
           noHeader={true}
           highlightOnHover
-          defaultSortField="locationName"
           pagination
           paginationComponentOptions={paginationOptions}
           dense={true}
