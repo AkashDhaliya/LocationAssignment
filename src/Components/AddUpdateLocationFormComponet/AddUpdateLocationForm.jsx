@@ -33,8 +33,10 @@ function AddUpdateLocationForm(props) {
     props.updateFacilityFormData(formData, facilityData);
   }
 
-  function facilityTimeTagFormat(data){
-    return `${data.day} ${data.timeFrom}${data.timeFromAM?'AM':'PM'} - ${data.timeTo}${data.timeToAM?'AM':'PM'}`;
+  function facilityTimeTagFormat(data) {
+    return `${data.day} ${data.timeFrom}${data.timeFromAM ? "AM" : "PM"} - ${
+      data.timeTo
+    }${data.timeToAM ? "AM" : "PM"}`;
   }
 
   return (
@@ -266,10 +268,7 @@ function AddUpdateLocationForm(props) {
                         <div className="customeTagsParent">
                           {values.facilityTimes.map((item) => {
                             return (
-                              <span
-                                className="customeTags"
-                                key={item.day}
-                              >
+                              <span className="customeTags" key={item.day}>
                                 {facilityTimeTagFormat(item)}
                               </span>
                             );
@@ -283,7 +282,7 @@ function AddUpdateLocationForm(props) {
                       )}
                       showFacilityModal={facilityModal}
                       hideFacilityModal={() => setFacilityModal(false)}
-                      facilityData = {values.facilityTimes}
+                      facilityData={values.facilityTimes}
                     />
                   </div>
                   <div className="appointmentPool">
@@ -306,10 +305,7 @@ function AddUpdateLocationForm(props) {
                           {values.appointmentPool.split(",").map((item) => {
                             if (item.length > 0) {
                               return (
-                                <span
-                                  className="customeTags"
-                                  key={item.trim()}
-                                >
+                                <span className="customeTags" key={item.trim()}>
                                   {item.trim()}
                                 </span>
                               );

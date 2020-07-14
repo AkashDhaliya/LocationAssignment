@@ -8,32 +8,39 @@ function TimeSlot(props) {
 
   useEffect(() => {
     setExistingValues();
-  }, [props.showFacilityModal]);
+  }, [props.showFacilityModal,props.hideFacilityModal]);
 
-  function setExistingValues(){
+  function setExistingValues() {
     if (props.facilityData.length !== 0) {
       props.facilityData.forEach((propData) => {
         facilityData.forEach((item) => {
           if (item.day === propData.day) {
-            item.day= propData.day;
-            item.checked= propData.checked;
-            item.timeFrom= propData.timeFrom;
-            item.timeFromAM= propData.timeFromAM;
-            item.timeFromPM= propData.timeFromPM;
-            item.timeTo= propData.timeTo;
-            item.timeToAM= propData.timeToAM;
-            item.timeToPM= propData.timeToPM;
-            item.timeFromerror= propData.timeFromerror;
-            item.timeToerror= propData.timeToerror;
-           }
-          });
+            item.day = propData.day;
+            item.checked = propData.checked;
+            item.timeFrom = propData.timeFrom;
+            item.timeFromAM = propData.timeFromAM;
+            item.timeFromPM = propData.timeFromPM;
+            item.timeTo = propData.timeTo;
+            item.timeToAM = propData.timeToAM;
+            item.timeToPM = propData.timeToPM;
+            item.timeFromerror = propData.timeFromerror;
+            item.timeToerror = propData.timeToerror;
+          }
+        });
       });
       setFacilityData(facilityData);
+    }else{
+      setFacilityData(resetFacilityData());
     }
   }
 
   function resetHandler() {
     props.hideFacilityModal();
+    setFacilityData(resetFacilityData());
+    setIsError(false);
+  }
+
+  function resetFacilityData(){
     let data = TIME_FACILITY_INITIAL_DATA.map((item) => {
       let data = {
         day: item.day,
@@ -49,8 +56,7 @@ function TimeSlot(props) {
       };
       return data;
     });
-    setFacilityData(data);
-    setIsError(false);
+    return data;
   }
 
   function submitHandler() {
@@ -161,8 +167,8 @@ function TimeSlot(props) {
     setIsError(error);
     setFacilityData(data);
   }
-
   return (
+    
     <>
       <div
         className={
@@ -178,6 +184,7 @@ function TimeSlot(props) {
             <span className="toHeader">To</span>
           </div>
           {facilityData.map((item) => (
+            item.timeFrom!==undefined &&
             <div key={item.day} className="facilityContentDiv">
               <input
                 type="checkbox"
@@ -269,9 +276,8 @@ function TimeSlot(props) {
               Cancel
             </button>
             <button
-              className={isError ? "btnDisabled" : ""}
+              className={isError ? "btnDisabled saveTimeBtn" : "saveTimeBtn"}
               type="button"
-              className="saveTimeBtn"
               onClick={submitHandler}
               disabled={isError}
             >

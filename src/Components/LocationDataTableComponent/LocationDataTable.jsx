@@ -4,6 +4,7 @@ import { FaTrashAlt, FaPencilAlt } from "react-icons/fa";
 import formatStringByPattern from "format-string-by-pattern";
 import { GET_ERROR_MSG, customStyles } from "../../Constants/Constant";
 import LoadingSpinner from "../LoadingSpinnerComponent/LoadingSpinner";
+import LocationDataTableExpander from "../LocationDataTableExpanderComponent/LocationDataTableExpander";
 
 function LocationDataTable(props) {
   const columns = [
@@ -64,6 +65,8 @@ function LocationDataTable(props) {
           customStyles={customStyles}
           theme="solarized"
           data={locationData}
+          expandableRows
+          expandableRowsComponent={<LocationDataTableExpander data={locationData} />}
         />
       </section>
     ) : (

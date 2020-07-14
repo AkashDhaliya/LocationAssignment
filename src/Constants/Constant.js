@@ -92,7 +92,7 @@ export const TIME_FACILITY_INITIAL_DATA = [
     fromAMPM: "",
     to: "",
     toAMPM: "",
-  }
+  },
 ];
 
 export const STATELIST = [
@@ -193,7 +193,7 @@ export const customStyles = {
     style: {
       border: "1px solid transparent",
       borderRadius: "40px",
-      marginBottom: "7px",
+      
     },
   },
   headCells: {
@@ -206,7 +206,7 @@ export const customStyles = {
     style: {
       border: "1px solid transparent",
       borderRadius: "40px",
-      marginBottom: "7px",
+      marginTop: "7px",
       color: "#878c92",
       fontSize: "12px",
       fontWeight: "500",
@@ -230,7 +230,7 @@ export const customStyles = {
       border: "1px solid transparent",
       borderRadius: "40px",
       minHeight: "40px",
-      marginBottom: "7px",
+      marginTop: "7px",
     },
     pageButtonsStyle: {
       color: "green",
