@@ -29,6 +29,14 @@ function AddUpdateLocationForm(props) {
     reset();
   }
 
+  function updateFacilityHandler(formData, facilityData) {
+    props.updateFacilityFormData(formData, facilityData);
+  }
+
+  function facilityTimeTagFormat(data){
+    return `${data.day} ${data.timeFrom}${data.timeFromAM?'AM':'PM'} - ${data.timeTo}${data.timeToAM?'AM':'PM'}`;
+  }
+
   return (
     <>
       <div className={props.showAddUpdateForm ? "modal show-modal" : "modal"}>
@@ -249,13 +257,33 @@ function AddUpdateLocationForm(props) {
                       className="addUpdateLocationInput"
                       type="text"
                       name="facilityTimes"
+                      readOnly
+                      value={values.facilityTimes.day}
                       onClick={() => setFacilityModal(true)}
-                      onChange={handleChange}
-                      value={values.facilityTimes}
                     />
+                    {values.facilityTimes !== undefined &&
+                      values.facilityTimes.length > 0 && (
+                        <div className="customeTagsParent">
+                          {values.facilityTimes.map((item) => {
+                            return (
+                              <span
+                                className="customeTags"
+                                key={item.day}
+                              >
+                                {facilityTimeTagFormat(item)}
+                              </span>
+                            );
+                          })}
+                        </div>
+                      )}
                     <FacilityTimeSlot
+                      updateFacilityFormData={updateFacilityHandler.bind(
+                        null,
+                        values
+                      )}
                       showFacilityModal={facilityModal}
                       hideFacilityModal={() => setFacilityModal(false)}
+                      facilityData = {values.facilityTimes}
                     />
                   </div>
                   <div className="appointmentPool">
@@ -274,12 +302,12 @@ function AddUpdateLocationForm(props) {
                     />
                     {values.appointmentPool !== undefined &&
                       values.appointmentPool.length > 0 && (
-                        <div className="appointmentPoolTagsParent">
+                        <div className="customeTagsParent">
                           {values.appointmentPool.split(",").map((item) => {
                             if (item.length > 0) {
                               return (
                                 <span
-                                  className="appointmentTags"
+                                  className="customeTags"
                                   key={item.trim()}
                                 >
                                   {item.trim()}

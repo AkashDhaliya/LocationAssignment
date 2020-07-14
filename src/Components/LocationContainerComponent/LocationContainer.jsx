@@ -18,6 +18,11 @@ function LocationContainer() {
     getLocationData();
   }, []);
 
+  function updateFacilityFormData(formData,facilityData) {
+    formData.facilityTimes  = facilityData;
+    setInitialFormData(formData);
+  }
+
   function updateLocationData(row) {
     setInitialFormData(row);
     setShowAddUpdateForm(true);
@@ -64,19 +69,20 @@ function LocationContainer() {
       <AddLocationBtn showAddUpdateForm={() => setShowAddUpdateForm(true)} />
 
       <AddUpdateLocationForm
-        showAddUpdateForm={showAddUpdateForm}
-        hideAddUpdateForm={() => setShowAddUpdateForm(false)}
-        initialData={() => setInitialFormData(INITIALDATA)}
         formData={initialFormData}
+        showAddUpdateForm={showAddUpdateForm}
+        updateFacilityFormData={updateFacilityFormData}
+        initialData={() => setInitialFormData(INITIALDATA)}
+        hideAddUpdateForm={() => setShowAddUpdateForm(false)}
       />
       <LocationDataTable
-        showAddUpdateForm={showAddUpdateForm}
-        hideAddUpdateForm={() => setShowAddUpdateForm(false)}
+        isError={isError}
+        isResponse={isResponse}
+        locationData={locationData}
         delete={deleteLocationData}
         update={updateLocationData}
-        locationData={locationData}
-        isResponse={isResponse}
-        isError={isError}
+        showAddUpdateForm={showAddUpdateForm}
+        hideAddUpdateForm={() => setShowAddUpdateForm(false)}
       />
     </>
   );

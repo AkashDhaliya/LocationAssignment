@@ -1,7 +1,37 @@
 import React, { useState } from "react";
 import { TIME_FACILITY_INITIAL_DATA } from "../../Constants/Constant";
+import { useEffect } from "react";
 
 function TimeSlot(props) {
+  const [facilityData, setFacilityData] = useState(TIME_FACILITY_INITIAL_DATA);
+  const [isError, setIsError] = useState("");
+
+  useEffect(() => {
+    setExistingValues();
+  }, [props.showFacilityModal]);
+
+  function setExistingValues(){
+    if (props.facilityData.length !== 0) {
+      props.facilityData.forEach((propData) => {
+        facilityData.forEach((item) => {
+          if (item.day === propData.day) {
+            item.day= propData.day;
+            item.checked= propData.checked;
+            item.timeFrom= propData.timeFrom;
+            item.timeFromAM= propData.timeFromAM;
+            item.timeFromPM= propData.timeFromPM;
+            item.timeTo= propData.timeTo;
+            item.timeToAM= propData.timeToAM;
+            item.timeToPM= propData.timeToPM;
+            item.timeFromerror= propData.timeFromerror;
+            item.timeToerror= propData.timeToerror;
+           }
+          });
+      });
+      setFacilityData(facilityData);
+    }
+  }
+
   function resetHandler() {
     props.hideFacilityModal();
     let data = TIME_FACILITY_INITIAL_DATA.map((item) => {
@@ -23,13 +53,14 @@ function TimeSlot(props) {
     setIsError(false);
   }
 
-  // function submitHandler(submit) {
-  //   submit();
-  //   props.hideAddUpdateForm();
-  // }
-
-  const [facilityData, setFacilityData] = useState(TIME_FACILITY_INITIAL_DATA);
-  const [isError, setIsError] = useState("");
+  function submitHandler() {
+    let checkedData = facilityData.filter(
+      (item) =>
+        item.checked && item.timeFrom.length === 5 && item.timeTo.length === 5
+    );
+    props.updateFacilityFormData(checkedData.length > 0 ? checkedData : []);
+    props.hideFacilityModal();
+  }
 
   function detectKeyPress(e) {
     const re = /[0-9]+/g;
@@ -83,6 +114,7 @@ function TimeSlot(props) {
 
   function setTime(evt) {
     let time = evt.target.value;
+    let splittedHHMM = time.split(":");
     let timeField = evt.target.className.split(" ")[0];
     let day = evt.target.getAttribute("day");
     let error = false;
@@ -91,25 +123,29 @@ function TimeSlot(props) {
     if (time.length === 2 && evt.nativeEvent.inputType.includes("insertText")) {
       time = time + ":";
     }
+    if (
+      (time.length === 3 || time.length === 4) &&
+      splittedHHMM[0].length < 2
+    ) {
+      time =
+        splittedHHMM[0].length === 0
+          ? "00:" + splittedHHMM[1]
+          : "0" + splittedHHMM[0] + ":" + splittedHHMM[1];
+    }
     if (time.length === 5) {
       const validateTime = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/;
       error = !validateTime.test(time);
 
       if (!error) {
-        let splittedHHMM = time.split(":");
-        if (parseInt(splittedHHMM[0]) >= 12) {
-          AM = false;
-          PM = true;
-
+        AM = parseInt(splittedHHMM[0]) < 12 ? true : false;
+        PM = parseInt(splittedHHMM[0]) >= 12 ? true : false;
+        if (parseInt(splittedHHMM[0]) > 12) {
           let calculateHH = parseInt(splittedHHMM[0] - 12);
           splittedHHMM[0] =
             calculateHH < 10
               ? "0" + calculateHH.toString()
               : calculateHH.toString();
           time = splittedHHMM.join(":");
-        } else {
-          AM = true;
-          PM = false;
         }
       }
     }
@@ -234,7 +270,9 @@ function TimeSlot(props) {
             </button>
             <button
               className={isError ? "btnDisabled" : ""}
-              type="submit"
+              type="button"
+              className="saveTimeBtn"
+              onClick={submitHandler}
               disabled={isError}
             >
               Save
