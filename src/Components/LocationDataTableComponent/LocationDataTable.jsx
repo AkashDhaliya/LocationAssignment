@@ -10,7 +10,10 @@ function LocationDataTable(props) {
   const columns = [
     {
       cell: (row) => <div className="serialNoIconDiv">{row.serial}</div>,
-      width: "60px",
+      name: "S No",
+      selector: "serial",
+      sortable: true,
+      width: "80px",
     },
     {
       name: "Location Name",
@@ -52,7 +55,7 @@ function LocationDataTable(props) {
   const { locationData, isResponse, isError } = props;
   if (isResponse && !isError) {
     return locationData.length !== 0 ? (
-      <section className="locationSection">
+      <section className="locationSection content">
         <DataTable
           columns={columns}
           noHeader={true}
@@ -64,6 +67,7 @@ function LocationDataTable(props) {
           size={10}
           customStyles={customStyles}
           theme="solarized"
+          defaultSortField={"serial"}
           data={locationData}
           expandableRows
           expandableRowsComponent={<LocationDataTableExpander data={locationData} />}
