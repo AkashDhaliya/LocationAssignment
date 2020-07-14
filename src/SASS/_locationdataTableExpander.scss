@@ -1,0 +1,33 @@
+.tablExpander{
+    display: flex;
+    list-style: none;
+    flex-wrap: wrap;
+    font-size: 12px;
+    font-weight: 500;
+    width: 80%;
+    margin: auto;
+    padding: 0;
+
+    li{
+        width: 50%;
+        padding: 10px 0px;
+    }
+}
+
+.tableExpanderLable{
+    padding-right: 35px;
+    display: inline-block;
+    width: 110px;
+}
+
+.tableExpanderContent{
+    padding-left: 35px;
+    color: #878c92;
+}
+
+.rdt_ExpanderRow{
+    margin-top: 7px;
+    border: 1px solid transparent;
+    border-radius: 15px;
+}
+
