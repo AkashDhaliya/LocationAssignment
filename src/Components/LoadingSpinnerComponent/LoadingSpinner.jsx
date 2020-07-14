@@ -1,6 +1,6 @@
 import React from "react";
 
-function Loading() {
+function LoadingSpinner() {
   return (
     <div className="lds-roller">
       <div></div>
@@ -15,4 +15,4 @@ function Loading() {
   );
 }
 
-export default Loading;
+export default LoadingSpinner;

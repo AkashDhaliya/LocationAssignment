@@ -1,23 +1,32 @@
 import React, { useState, useEffect } from "react";
-import AddLocation from "../AddLocationComponent/AddLocation";
+import { useIndexedDB } from "react-indexed-db";
+import AddLocationBtn from "../AddLocationBtnComponent/AddLocationBtn";
+import { INITIALDATA, DELETE_ERROR_MSG } from "../../Constants/Constant";
+import LocationDataTable from "../LocationDataTableComponent/LocationDataTable";
 import AddUpdateLocationForm from "../AddUpdateLocationFormComponet/AddUpdateLocationForm";
 
-import LocationTable from "../TableComponent/LocationTable";
-import { INITIALDATA, DELETE_ERROR_MSG } from "../../Constants/Constant";
-import { useIndexedDB } from "react-indexed-db";
-
 function LocationContainer() {
-  const [showAddUpdateForm, setShowAddUpdateForm] = useState(false);
   const [, setErrorCatch] = useState(null);
-  const { getAll, deleteRecord } = useIndexedDB("locations");
-  const [locationData, setLocationData] = useState([]);
-  const [isResponse, setIsResponse] = useState(false);
   const [isError, setisError] = useState(false);
+  const [isResponse, setIsResponse] = useState(false);
+  const [locationData, setLocationData] = useState([]);
+  const { getAll, deleteRecord } = useIndexedDB("locations");
+  const [showAddUpdateForm, setShowAddUpdateForm] = useState(false);
   const [initialFormData, setInitialFormData] = useState(INITIALDATA);
 
   useEffect(() => {
     getLocationData();
   }, []);
+
+  function updateFacilityFormData(formData,facilityData) {
+    formData.facilityTimes  = facilityData;
+    setInitialFormData(formData);
+  }
+
+  function updateLocationData(row) {
+    setInitialFormData(row);
+    setShowAddUpdateForm(true);
+  }
 
   function getLocationData() {
     getAll().then(
@@ -55,29 +64,25 @@ function LocationContainer() {
     }
   }
 
-  function updateLocationData(row) {
-    setInitialFormData(row);
-    setShowAddUpdateForm(true);
-  }
-
   return (
     <>
-      <AddLocation showAddUpdateForm={() => setShowAddUpdateForm(true)} />
+      <AddLocationBtn showAddUpdateForm={() => setShowAddUpdateForm(true)} />
 
       <AddUpdateLocationForm
-        showAddUpdateForm={showAddUpdateForm}
-        hideAddUpdateForm={() => setShowAddUpdateForm(false)}
-        initialData={() => setInitialFormData(INITIALDATA)}
         formData={initialFormData}
-      />
-      <LocationTable
         showAddUpdateForm={showAddUpdateForm}
+        updateFacilityFormData={updateFacilityFormData}
+        initialData={() => setInitialFormData(INITIALDATA)}
         hideAddUpdateForm={() => setShowAddUpdateForm(false)}
+      />
+      <LocationDataTable
+        isError={isError}
+        isResponse={isResponse}
+        locationData={locationData}
         delete={deleteLocationData}
         update={updateLocationData}
-        locationData={locationData}
-        isResponse={isResponse}
-        isError={isError}
+        showAddUpdateForm={showAddUpdateForm}
+        hideAddUpdateForm={() => setShowAddUpdateForm(false)}
       />
     </>
   );

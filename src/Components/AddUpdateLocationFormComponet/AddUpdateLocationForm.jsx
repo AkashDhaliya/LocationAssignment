@@ -1,21 +1,27 @@
 import React, { useState } from "react";
+import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { useIndexedDB } from "react-indexed-db";
-import TimeSlot from "../TimeSlotComponent/TimeSlot";
+import FacilityTimeSlot from "../FacilityTimeSlotComponent/FacilityTimeSlot";
 import { ADD_ERROR_MSG, UPDATE_ERROR_MSG } from "../../Constants/Constant";
-import * as Yup from "yup";
+
 import {
   STATELIST,
-  SPECIAL_CHAR_ERROR_MSG,
+  CITY_ERROR_MSG,
   TIME_ZONE_LIST,
   ZIP_CODE_ERROR_MSG,
   PHONE_NO_ERROR_MSG,
-  CITY_ERROR_MSG,
+  SPECIAL_CHAR_ERROR_MSG,
 } from "../../Constants/Constant";
 
 function AddUpdateLocationForm(props) {
   const { add, update } = useIndexedDB("locations");
   const [facilityModal, setFacilityModal] = useState(false);
+
+  function submitHandler(submit) {
+    submit();
+    props.hideAddUpdateForm();
+  }
 
   function resetHandler(reset) {
     props.hideAddUpdateForm();
@@ -23,9 +29,14 @@ function AddUpdateLocationForm(props) {
     reset();
   }
 
-  function submitHandler(submit) {
-    submit();
-    props.hideAddUpdateForm();
+  function updateFacilityHandler(formData, facilityData) {
+    props.updateFacilityFormData(formData, facilityData);
+  }
+
+  function facilityTimeTagFormat(data) {
+    return `${data.day} ${data.timeFrom}${data.timeFromAM ? "AM" : "PM"} - ${
+      data.timeTo
+    }${data.timeToAM ? "AM" : "PM"}`;
   }
 
   return (
@@ -77,7 +88,11 @@ function AddUpdateLocationForm(props) {
             }) => (
               <Form onSubmit={submitHandler.bind(null, handleSubmit)}>
                 <div className="locationName">
-                  <label className="addUpdateLocationLabel" required htmlFor="locationName">
+                  <label
+                    className="addUpdateLocationLabel"
+                    required
+                    htmlFor="locationName"
+                  >
                     Location Name
                   </label>
                   <Field
@@ -94,7 +109,11 @@ function AddUpdateLocationForm(props) {
 
                 <div>
                   <div className="addressLine1">
-                    <label className="addUpdateLocationLabel" required htmlFor="addressLine1">
+                    <label
+                      className="addUpdateLocationLabel"
+                      required
+                      htmlFor="addressLine1"
+                    >
                       Address Line 1
                     </label>
                     <Field
@@ -110,7 +129,9 @@ function AddUpdateLocationForm(props) {
                   </div>
 
                   <div className="suiteNo">
-                    <label className="addUpdateLocationLabel" htmlFor="suiteNo">Suite No.</label>
+                    <label className="addUpdateLocationLabel" htmlFor="suiteNo">
+                      Suite No.
+                    </label>
                     <Field
                       type="text"
                       name="suiteNo"
@@ -122,7 +143,12 @@ function AddUpdateLocationForm(props) {
                 </div>
                 <div>
                   <div className="addressLine2">
-                    <label className="addUpdateLocationLabel" htmlFor="addressLine2">Address Line 2</label>
+                    <label
+                      className="addUpdateLocationLabel"
+                      htmlFor="addressLine2"
+                    >
+                      Address Line 2
+                    </label>
                     <Field
                       type="text"
                       className="addUpdateLocationInput"
@@ -132,7 +158,9 @@ function AddUpdateLocationForm(props) {
                     />
                   </div>
                   <div className="city">
-                    <label className="addUpdateLocationLabel" htmlFor="city">City</label>
+                    <label className="addUpdateLocationLabel" htmlFor="city">
+                      City
+                    </label>
                     <Field
                       type="text"
                       className="addUpdateLocationInput"
@@ -143,7 +171,9 @@ function AddUpdateLocationForm(props) {
                     <div className="errorMsg">{errors.city}</div>
                   </div>
                   <div className="state">
-                    <label className="addUpdateLocationLabel" htmlFor="state">State</label>
+                    <label className="addUpdateLocationLabel" htmlFor="state">
+                      State
+                    </label>
                     <select
                       name="state"
                       onChange={handleChange}
@@ -162,7 +192,9 @@ function AddUpdateLocationForm(props) {
 
                 <div>
                   <div className="zipCode">
-                    <label className="addUpdateLocationLabel" htmlFor="zipCode">Zip Code</label>
+                    <label className="addUpdateLocationLabel" htmlFor="zipCode">
+                      Zip Code
+                    </label>
                     <Field
                       type="text"
                       name="zipCode"
@@ -175,7 +207,11 @@ function AddUpdateLocationForm(props) {
                     )}
                   </div>
                   <div className="phoneNo">
-                    <label className="addUpdateLocationLabel" required htmlFor="phoneNo">
+                    <label
+                      className="addUpdateLocationLabel"
+                      required
+                      htmlFor="phoneNo"
+                    >
                       Phone Number
                     </label>
                     <Field
@@ -189,7 +225,12 @@ function AddUpdateLocationForm(props) {
                     )}
                   </div>
                   <div className="timeZone">
-                    <label className="addUpdateLocationLabel" htmlFor="timeZone">Time Zone</label>
+                    <label
+                      className="addUpdateLocationLabel"
+                      htmlFor="timeZone"
+                    >
+                      Time Zone
+                    </label>
 
                     <select
                       name="timeZone"
@@ -208,24 +249,51 @@ function AddUpdateLocationForm(props) {
 
                 <div>
                   <div className="facilityTimes">
-                    <label className="addUpdateLocationLabel" htmlFor="facilityTimes">Facility Times</label>
+                    <label
+                      className="addUpdateLocationLabel"
+                      htmlFor="facilityTimes"
+                    >
+                      Facility Times
+                    </label>
                     <Field
-                    className="addUpdateLocationInput"
+                      className="addUpdateLocationInput"
                       type="text"
                       name="facilityTimes"
+                      readOnly
+                      value={values.facilityTimes.day}
                       onClick={() => setFacilityModal(true)}
-                      onChange={handleChange}
-                      value={values.facilityTimes}
                     />
-                    <TimeSlot
+                    {values.facilityTimes !== undefined &&
+                      values.facilityTimes.length > 0 && (
+                        <div className="customeTagsParent">
+                          {values.facilityTimes.map((item) => {
+                            return (
+                              <span className="customeTags" key={item.day}>
+                                {facilityTimeTagFormat(item)}
+                              </span>
+                            );
+                          })}
+                        </div>
+                      )}
+                    <FacilityTimeSlot
+                      updateFacilityFormData={updateFacilityHandler.bind(
+                        null,
+                        values
+                      )}
                       showFacilityModal={facilityModal}
                       hideFacilityModal={() => setFacilityModal(false)}
+                      facilityData={values.facilityTimes}
                     />
                   </div>
                   <div className="appointmentPool">
-                    <label className="addUpdateLocationLabel" htmlFor="appointmentPool">Appointment Pool</label>
+                    <label
+                      className="addUpdateLocationLabel"
+                      htmlFor="appointmentPool"
+                    >
+                      Appointment Pool
+                    </label>
                     <Field
-                    className="addUpdateLocationInput"
+                      className="addUpdateLocationInput"
                       type="text"
                       name="appointmentPool"
                       onChange={handleChange}
@@ -233,18 +301,16 @@ function AddUpdateLocationForm(props) {
                     />
                     {values.appointmentPool !== undefined &&
                       values.appointmentPool.length > 0 && (
-                        <div className="appointmentPoolTagsParent">
+                        <div className="customeTagsParent">
                           {values.appointmentPool.split(",").map((item) => {
                             if (item.length > 0) {
                               return (
-                                <span
-                                  className="appointmentTags"
-                                  key={item.trim()}
-                                >
+                                <span className="customeTags" key={item.trim()}>
                                   {item.trim()}
                                 </span>
                               );
                             }
+                            return null;
                           })}
                         </div>
                       )}

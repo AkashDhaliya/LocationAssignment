@@ -190,16 +190,16 @@ form > div {
   display: table;
 }
 
-.appointmentPoolTagsParent {
-  font-size: 12px;
+.customeTagsParent {
+  font-size: 10px;
   display: table;
 }
 
-.appointmentTags {
-  background: #eee;
+.customeTags {
+  background: #2a5f8d;
   display: inline-block;
   padding: 5px 5px;
   border-radius: 4px;
   margin: 5px 5px 0 0;
-  color: #666;
+  color: $white;
 }

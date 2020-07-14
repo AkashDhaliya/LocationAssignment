@@ -1,6 +1,6 @@
 import React from "react";
 
-function AddLocation(props) {
+function AddLocationBtn(props) {
   return (
     <button
       className="addLocationBtn"
@@ -11,4 +11,4 @@ function AddLocation(props) {
   );
 }
 
-export default AddLocation;
+export default AddLocationBtn;

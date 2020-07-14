@@ -1,17 +1,19 @@
 import React from "react";
 import DataTable from "react-data-table-component";
-import { GET_ERROR_MSG, customStyles } from "../../Constants/Constant";
-import Loading from "../LoadingComponent/Loading";
 import { FaTrashAlt, FaPencilAlt } from "react-icons/fa";
 import formatStringByPattern from "format-string-by-pattern";
+import { GET_ERROR_MSG, customStyles } from "../../Constants/Constant";
+import LoadingSpinner from "../LoadingSpinnerComponent/LoadingSpinner";
+import LocationDataTableExpander from "../LocationDataTableExpanderComponent/LocationDataTableExpander";
 
-function LocationTable(props) {
+function LocationDataTable(props) {
   const columns = [
     {
-      cell: (row) => (
-        <div className="serialNoIconDiv">{row.serial}</div>
-      ),
-      width:"60px",
+      cell: (row) => <div className="serialNoIconDiv">{row.serial}</div>,
+      name: "S No",
+      selector: "serial",
+      sortable: true,
+      width: "80px",
     },
     {
       name: "Location Name",
@@ -53,23 +55,25 @@ function LocationTable(props) {
   const { locationData, isResponse, isError } = props;
   if (isResponse && !isError) {
     return locationData.length !== 0 ? (
-      <section className="locationSection">
+      <section className="locationSection content">
         <DataTable
           columns={columns}
           noHeader={true}
           highlightOnHover
-          defaultSortField="locationName"
           pagination
           paginationComponentOptions={paginationOptions}
           dense={true}
           size={10}
           customStyles={customStyles}
           theme="solarized"
+          defaultSortField={"serial"}
           data={locationData}
+          expandableRows
+          expandableRowsComponent={<LocationDataTableExpander data={locationData} />}
         />
       </section>
     ) : (
-      <section className="locationSection">
+      <section className="locationSection noData">
         <img
           src={require("../../Images/no_locations.jpg")}
           alt="No Locations available"
@@ -85,10 +89,10 @@ function LocationTable(props) {
   } else {
     return (
       <section className="locationSection loading">
-        <Loading />
+        <LoadingSpinner />
       </section>
     );
   }
 }
 
-export default LocationTable;
+export default LocationDataTable;

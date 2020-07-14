@@ -9,12 +9,20 @@
   }
 }
 
+.content {
+  height: auto!important;
+}
+
 .loading {
   img,
   p,
   div {
     margin: auto;
   }
+}
+
+.noData{
+  background-color: $noDataLocationbgColor;
 }
 
 .editIcon {
