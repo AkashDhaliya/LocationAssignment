@@ -18,8 +18,8 @@ function LocationContainer() {
     getLocationData();
   }, []);
 
-  function updateFacilityFormData(formData,facilityData) {
-    formData.facilityTimes  = facilityData;
+  function updateFacilityFormData(formData, facilityData) {
+    formData.facilityTimes = facilityData;
     setInitialFormData(formData);
   }
 

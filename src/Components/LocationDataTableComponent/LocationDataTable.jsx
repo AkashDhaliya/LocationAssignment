@@ -1,7 +1,9 @@
 import React from "react";
+import NoData from "../NoDataComponent/NoData";
 import DataTable from "react-data-table-component";
 import { FaTrashAlt, FaPencilAlt } from "react-icons/fa";
 import formatStringByPattern from "format-string-by-pattern";
+import ErrorMessage from "../ErrrorMessageComponent/ErrorMessage";
 import { GET_ERROR_MSG, customStyles } from "../../Constants/Constant";
 import LoadingSpinner from "../LoadingSpinnerComponent/LoadingSpinner";
 import LocationDataTableExpander from "../LocationDataTableExpanderComponent/LocationDataTableExpander";
@@ -69,29 +71,18 @@ function LocationDataTable(props) {
           defaultSortField={"serial"}
           data={locationData}
           expandableRows
-          expandableRowsComponent={<LocationDataTableExpander data={locationData} />}
+          expandableRowsComponent={
+            <LocationDataTableExpander data={locationData} />
+          }
         />
       </section>
     ) : (
-      <section className="locationSection noData">
-        <img
-          src={require("../../Images/no_locations.jpg")}
-          alt="No Locations available"
-        />
-      </section>
+      <NoData />
     );
   } else if (isResponse && isError) {
-    return (
-      <section className="locationSection">
-        <p> {GET_ERROR_MSG}</p>
-      </section>
-    );
+    return <ErrorMessage ErrorMessage={GET_ERROR_MSG} />;
   } else {
-    return (
-      <section className="locationSection loading">
-        <LoadingSpinner />
-      </section>
-    );
+    return <LoadingSpinner />;
   }
 }
 

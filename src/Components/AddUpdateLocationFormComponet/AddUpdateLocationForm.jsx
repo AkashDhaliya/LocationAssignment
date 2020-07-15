@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { useIndexedDB } from "react-indexed-db";
+import {TIME_FORMATTER} from '../../Utility/Utility';
 import FacilityTimeSlot from "../FacilityTimeSlotComponent/FacilityTimeSlot";
 import { ADD_ERROR_MSG, UPDATE_ERROR_MSG } from "../../Constants/Constant";
+
 
 import {
   STATELIST,
@@ -31,12 +33,6 @@ function AddUpdateLocationForm(props) {
 
   function updateFacilityHandler(formData, facilityData) {
     props.updateFacilityFormData(formData, facilityData);
-  }
-
-  function facilityTimeTagFormat(data) {
-    return `${data.day} ${data.timeFrom}${data.timeFromAM ? "AM" : "PM"} - ${
-      data.timeTo
-    }${data.timeToAM ? "AM" : "PM"}`;
   }
 
   return (
@@ -269,7 +265,7 @@ function AddUpdateLocationForm(props) {
                           {values.facilityTimes.map((item) => {
                             return (
                               <span className="customeTags" key={item.day}>
-                                {facilityTimeTagFormat(item)}
+                                {TIME_FORMATTER(item)}
                               </span>
                             );
                           })}
