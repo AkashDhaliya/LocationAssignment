@@ -25,7 +25,7 @@ class Form extends PureComponent {
   handleChange = (evt) => {
     let field = evt.target.name;
     let value = evt.target.value;
-    let validate = value.length===0?true:this.detectInputValidation(evt);
+    let validate = value.length === 0 ? true : this.detectInputValidation(evt);
     if (validate) {
       this.setState((prevState) => ({
         [field]: {
@@ -55,6 +55,10 @@ class Form extends PureComponent {
           break;
         case "city":
           errroMessage = CityErrorMsg;
+          break;
+
+        default:
+          errroMessage = "";
           break;
       }
     }
@@ -129,7 +133,7 @@ class Form extends PureComponent {
                   <select
                     type="text"
                     name={fieldId}
-                    isrequired = {fieldRequired}
+                    isrequired={fieldRequired}
                     value={this.state[fieldId].value}
                     onChange={this.handleChange}
                     className="addUpdateLocationInput"
@@ -143,9 +147,19 @@ class Form extends PureComponent {
                   </select>
                 </div>
               );
+            default:
+              return null;
           }
+          return null;
         })}
-        <button type="submit">Submit</button>
+        <div className="actionBtn">
+          <button className="cnclBtn" type="button">
+            Cancel
+          </button>
+          <button type="submit" disabled={true}>
+            Submit
+          </button>
+        </div>
       </form>
     );
   }
