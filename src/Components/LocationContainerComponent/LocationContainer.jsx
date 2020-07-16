@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useIndexedDB } from "react-indexed-db";
 import AddLocationBtn from "../AddLocationBtnComponent/AddLocationBtn";
-import { INITIALDATA, DELETE_ERROR_MSG } from "../../Constants/Constant";
+import { INITIALDATA, DeleteErrorMsg } from "../../Constants/Constant";
 import LocationDataTable from "../LocationDataTableComponent/LocationDataTable";
 import AddUpdateLocationForm from "../AddUpdateLocationFormComponet/AddUpdateLocationForm";
 
@@ -58,7 +58,7 @@ function LocationContainer() {
           getLocationData();
         },
         (error) => {
-          window.alert(DELETE_ERROR_MSG);
+          window.alert(DeleteErrorMsg);
         }
       );
     }

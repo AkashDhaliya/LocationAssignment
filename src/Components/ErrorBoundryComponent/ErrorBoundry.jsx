@@ -1,5 +1,5 @@
 import React from 'react';
-import {GET_ERROR_MSG} from '../../Constants/Constant'
+import { GetErrorMSG} from '../../Constants/Constant'
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return <section className="locationSection">
-      <p> {GET_ERROR_MSG}</p>
+      <p> {GetErrorMSG}</p>
     </section>;
     }
     return this.props.children;

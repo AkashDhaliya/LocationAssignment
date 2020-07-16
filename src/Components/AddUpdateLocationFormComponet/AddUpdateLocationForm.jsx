@@ -2,19 +2,19 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 import { Formik, Form, Field } from "formik";
 import { useIndexedDB } from "react-indexed-db";
-import {TIME_FORMATTER} from '../../Utility/Utility';
+import { TIME_FORMATTER } from "../../Utility/Utility";
 import FacilityTimeSlot from "../FacilityTimeSlotComponent/FacilityTimeSlot";
-import { ADD_ERROR_MSG, UPDATE_ERROR_MSG } from "../../Constants/Constant";
-
 
 import {
-  STATELIST,
-  CITY_ERROR_MSG,
-  TIME_ZONE_LIST,
-  ZIP_CODE_ERROR_MSG,
-  PHONE_NO_ERROR_MSG,
-  SPECIAL_CHAR_ERROR_MSG,
+  CityErrorMsg,
+  ZipCodeErrorMsg,
+  PhoneNoErrorMsg,
+  SpecialCharErrorMsg,
+  AddErrorMsg,
+  UpdateErrorMsg,
 } from "../../Constants/Constant";
+import { stateList } from "../../Utility/stateList";
+import { timeZoneList } from "../../Utility/timeZoneList";
 
 function AddUpdateLocationForm(props) {
   const { add, update } = useIndexedDB("locations");
@@ -51,7 +51,7 @@ function AddUpdateLocationForm(props) {
                 },
                 (error) => {
                   window.alert(
-                    values.id === undefined ? ADD_ERROR_MSG : UPDATE_ERROR_MSG
+                    values.id === undefined ? AddErrorMsg : UpdateErrorMsg
                   );
                 }
               );
@@ -60,18 +60,18 @@ function AddUpdateLocationForm(props) {
             validationSchema={Yup.object().shape({
               locationName: Yup.string()
                 .required("Required")
-                .matches(/^[a-zA-Z0-9,_ -]+$/, SPECIAL_CHAR_ERROR_MSG),
+                .matches(/^[a-zA-Z0-9,_ -]+$/, SpecialCharErrorMsg),
               addressLine1: Yup.string()
                 .required("Required")
-                .matches(/^[a-zA-Z0-9,_ -]+$/, SPECIAL_CHAR_ERROR_MSG),
+                .matches(/^[a-zA-Z0-9,_ -]+$/, SpecialCharErrorMsg),
               phoneNo: Yup.string()
                 .required("Required")
-                .matches(/^[0-9]+$/, PHONE_NO_ERROR_MSG),
-              city: Yup.string().matches(/^[a-zA-Z ]+$/, CITY_ERROR_MSG),
+                .matches(/^[0-9]+$/, PhoneNoErrorMsg),
+              city: Yup.string().matches(/^[a-zA-Z ]+$/, CityErrorMsg),
               zipCode: Yup.string()
                 .min(5, "Too Short!")
                 .max(10, "Too Long!")
-                .matches(/^[a-zA-Z0-9]+$/, ZIP_CODE_ERROR_MSG),
+                .matches(/^[a-zA-Z0-9]+$/, ZipCodeErrorMsg),
             })}
           >
             {({
@@ -177,7 +177,7 @@ function AddUpdateLocationForm(props) {
                       value={values.state}
                     >
                       <option value="">Select</option>
-                      {STATELIST.map((item) => (
+                      {stateList.map((item) => (
                         <option key={item} value={item}>
                           {item}
                         </option>
@@ -234,7 +234,7 @@ function AddUpdateLocationForm(props) {
                       value={values.timeZone}
                     >
                       <option value="">Select</option>
-                      {TIME_ZONE_LIST.map((item) => (
+                      {timeZoneList.map((item) => (
                         <option key={item} value={item}>
                           {item}
                         </option>

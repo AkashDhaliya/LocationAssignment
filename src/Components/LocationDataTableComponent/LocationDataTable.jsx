@@ -4,7 +4,7 @@ import DataTable from "react-data-table-component";
 import { FaTrashAlt, FaPencilAlt } from "react-icons/fa";
 import formatStringByPattern from "format-string-by-pattern";
 import ErrorMessage from "../ErrrorMessageComponent/ErrorMessage";
-import { GET_ERROR_MSG, customStyles } from "../../Constants/Constant";
+import { customStyles, GetErrorMSG } from "../../Constants/Constant";
 import LoadingSpinner from "../LoadingSpinnerComponent/LoadingSpinner";
 import LocationDataTableExpander from "../LocationDataTableExpanderComponent/LocationDataTableExpander";
 
@@ -80,7 +80,7 @@ function LocationDataTable(props) {
       <NoData />
     );
   } else if (isResponse && isError) {
-    return <ErrorMessage ErrorMessage={GET_ERROR_MSG} />;
+    return <ErrorMessage ErrorMessage={GetErrorMSG} />;
   } else {
     return <LoadingSpinner />;
   }

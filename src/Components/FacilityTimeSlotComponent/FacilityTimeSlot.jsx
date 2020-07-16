@@ -8,7 +8,7 @@ function TimeSlot(props) {
 
   useEffect(() => {
     setExistingValues();
-  }, [props.showFacilityModal,props.hideFacilityModal]);
+  }, [props.showFacilityModal, props.hideFacilityModal]);
 
   function setExistingValues() {
     if (props.facilityData.length !== 0) {
@@ -29,7 +29,7 @@ function TimeSlot(props) {
         });
       });
       setFacilityData(facilityData);
-    }else{
+    } else {
       setFacilityData(resetFacilityData());
     }
   }
@@ -40,7 +40,7 @@ function TimeSlot(props) {
     setIsError(false);
   }
 
-  function resetFacilityData(){
+  function resetFacilityData() {
     let data = TIME_FACILITY_INITIAL_DATA.map((item) => {
       let data = {
         day: item.day,
@@ -168,7 +168,6 @@ function TimeSlot(props) {
     setFacilityData(data);
   }
   return (
-    
     <>
       <div
         className={
@@ -183,93 +182,97 @@ function TimeSlot(props) {
             <span className="fromHeader">From</span>
             <span className="toHeader">To</span>
           </div>
-          {facilityData.map((item) => (
-            item.timeFrom!==undefined &&
-            <div key={item.day} className="facilityContentDiv">
-              <input
-                type="checkbox"
-                name={item.day}
-                checked={item.checked}
-                onChange={checkedhandler}
-                value={item.day}
-              ></input>
-              <label className={"TimeSlot-label"} htmlFor={item.day}>
-                {item.day}
-              </label>
-              <span>
-                <input
-                  maxLength="5"
-                  className={
-                    item.timeFromerror
-                      ? "timeFrom facilityInputFromError"
-                      : "timeFrom"
-                  }
-                  day={item.day}
-                  onKeyPress={(e) => detectKeyPress(e)}
-                  type="text"
-                  onChange={setTime}
-                  value={item.timeFrom}
-                ></input>
-                <span>
-                  <span
-                    className={
-                      item.timeFromAM ? "AMSpan activeAMPMSpan" : "AMSpan"
-                    }
-                  >
-                    AM
+          {facilityData.map(
+            (item) =>
+              item.timeFrom !== undefined && (
+                <div key={item.day} className="facilityContentDiv">
+                  <input
+                    type="checkbox"
+                    name={item.day}
+                    checked={item.checked}
+                    onChange={checkedhandler}
+                    value={item.day}
+                  ></input>
+                  <label className={"TimeSlot-label"} htmlFor={item.day}>
+                    {item.day}
+                  </label>
+                  <span>
+                    <input
+                      maxLength="5"
+                      className={
+                        item.timeFromerror
+                          ? "timeFrom facilityInputFromError"
+                          : "timeFrom"
+                      }
+                      day={item.day}
+                      onKeyPress={(e) => detectKeyPress(e)}
+                      type="text"
+                      onChange={setTime}
+                      value={item.timeFrom}
+                    ></input>
+                    <span>
+                      <span
+                        className={
+                          item.timeFromAM ? "AMSpan activeAMPMSpan" : "AMSpan"
+                        }
+                      >
+                        AM
+                      </span>
+                      <span
+                        className={
+                          item.timeFromPM ? "PMSpan activeAMPMSpan" : "PMSpan"
+                        }
+                      >
+                        PM
+                      </span>
+                    </span>
                   </span>
-                  <span
-                    className={
-                      item.timeFromPM ? "PMSpan activeAMPMSpan" : "PMSpan"
-                    }
-                  >
-                    PM
+                  <span>
+                    <input
+                      maxLength="5"
+                      className={
+                        item.timeToerror
+                          ? "timeTo facilityInputToError"
+                          : "timeTo"
+                      }
+                      day={item.day}
+                      onKeyPress={(e) => detectKeyPress(e)}
+                      onChange={setTime}
+                      type="text"
+                      value={item.timeTo}
+                    ></input>
+                    <span>
+                      <span
+                        className={
+                          item.timeToAM ? "AMSpan activeAMPMSpan" : "AMSpan"
+                        }
+                      >
+                        AM
+                      </span>
+                      <span
+                        className={
+                          item.timeToPM ? "PMSpan activeAMPMSpan" : "PMSpan"
+                        }
+                      >
+                        PM
+                      </span>
+                    </span>
                   </span>
-                </span>
-              </span>
-              <span>
-                <input
-                  maxLength="5"
-                  className={
-                    item.timeToerror ? "timeTo facilityInputToError" : "timeTo"
-                  }
-                  day={item.day}
-                  onKeyPress={(e) => detectKeyPress(e)}
-                  onChange={setTime}
-                  type="text"
-                  value={item.timeTo}
-                ></input>
-                <span>
-                  <span
-                    className={
-                      item.timeToAM ? "AMSpan activeAMPMSpan" : "AMSpan"
-                    }
-                  >
-                    AM
+                  <span>
+                    <button
+                      disabled={isError}
+                      className={
+                        isError ? "btnDisabled applyToAllBtn" : "applyToAllBtn"
+                      }
+                      name={item.day}
+                      onClick={applyToAllHandler}
+                    >
+                      Apply to All Checked
+                    </button>
                   </span>
-                  <span
-                    className={
-                      item.timeToPM ? "PMSpan activeAMPMSpan" : "PMSpan"
-                    }
-                  >
-                    PM
-                  </span>
-                </span>
-              </span>
-              <span>
-                <button
-                  disabled={isError}
-                  className={
-                    isError ? "btnDisabled applyToAllBtn" : "applyToAllBtn"
-                  }
-                  name={item.day}
-                  onClick={applyToAllHandler}
-                >
-                  Apply to All Checked
-                </button>
-              </span>
-            </div>
-          ))}
+                </div>
+              )
+          )}
           {isError && <div className="facilityContentError">Invalid time</div>}
           <div className="actionBtn">
             <button className="cnclBtn" type="button" onClick={resetHandler}>
