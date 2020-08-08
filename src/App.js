@@ -4,7 +4,7 @@ import { initDB } from "react-indexed-db";
 import { DBConfig } from "../src/Configurations/DBConfig";
 import Header from "./Components/HeaderComponent/Header";
 import ErrorBoundary from "./Components/ErrorBoundryComponent/ErrorBoundry";
-import LocationContainer from "./Components/LocationContainerComponent/LocationContainer";
+import DataContainer from "./Components/DataContainerComponent/DataContainer";
 
 initDB(DBConfig);
 
@@ -14,7 +14,7 @@ class App extends Component {
       <div className="LocationApp">
         <Header />
         <ErrorBoundary>
-          <LocationContainer />
+          <DataContainer />
         </ErrorBoundary>
       </div>
     );

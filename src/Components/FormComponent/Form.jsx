@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import Modal from "../ModalComponent/Modal";
 import { formFields } from "../../Utility/formData";
+
 import {
   SpecialCharErrorMsg,
   PhoneNoErrorMsg,

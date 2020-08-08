@@ -10,7 +10,7 @@
 }
 
 .content {
-  height: auto!important;
+  height: auto !important;
 }
 
 .loading {
@@ -21,8 +21,15 @@
   }
 }
 
-.noData{
+.noData {
   background-color: $noDataLocationbgColor;
+
+  div {
+    margin: auto;
+    font-size: larger;
+    font-weight: bold;
+    color: gray;
+  }
 }
 
 .editIcon {

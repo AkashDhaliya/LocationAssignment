@@ -3,10 +3,8 @@
 @import "./SASS/header.scss";
 @import "./SASS/locationContainer";
 @import "./SASS/loadingSpinner";
-@import "./SASS/addLocationBtn";
-@import "./SASS/addUpdateLocationForm";
-@import "./SASS/facilityTimeSlot";
-@import "./SASS//locationdataTableExpander";
+@import "./SASS/addDataBtn";
+@import "./SASS/addUpdateForm";
 
 body{
     background-color: $grey;
